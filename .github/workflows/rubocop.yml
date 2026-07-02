@@ -1,0 +1,19 @@
+name: RuboCop Lint
+on: [push]
+
+jobs:
+    rubocop:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        
+        - name: Setup Ruby
+          uses: ruby/setup-ruby@v1
+          with:
+            ruby-version: '3.4.1'
+            bundler-cache: true
+
+        - name: Run RuboCop
+          run: bundle exec rubocop
