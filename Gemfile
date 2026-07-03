@@ -46,6 +46,9 @@ gem "cssbundling-rails", "~> 1.4"
 # Centralization of locale data [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
 
+# [https://github.com/heartcombo/devise]
+gem 'devise'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
