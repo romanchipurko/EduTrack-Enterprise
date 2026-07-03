@@ -76,6 +76,9 @@ group :development do
 end
 
 group :test do
+  # [https://rubygems.org/gems/database_cleaner/versions/2.0.2]
+  gem "database_cleaner", "~> 2.0", ">= 2.0.2"
+
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
