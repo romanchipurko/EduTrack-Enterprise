@@ -19,6 +19,8 @@ class User < ApplicationRecord
           format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.{8,}).+\z/ },
           if: :required_password?
   
+  validates :role, presence: true
+  
   private
 
   def required_password?
