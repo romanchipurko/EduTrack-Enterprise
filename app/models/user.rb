@@ -13,14 +13,14 @@ class User < ApplicationRecord
           presence: true,
           uniqueness: { case_sensitive: false },
           format: { with: /\A[\w+\-.]+@[a-z\d]+([-.][a-z\d]+)*\.[a-z]{2,}\z/i }
-  
+
   validates :password,
           presence: true,
           format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.{8,}).+\z/ },
           if: :required_password?
-  
+
   validates :role, presence: true
-  
+
   private
 
   def required_password?

@@ -87,4 +87,13 @@ RSpec.configure do |config|
     Bullet.end_request
     Bullet.perform_out_of_channel_notifications if Bullet.notification?
   end
+
+  config.include FactoryBot::Syntax::Methods
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
