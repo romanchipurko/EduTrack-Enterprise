@@ -7,7 +7,7 @@ en:
     hero:
       label: "Enterprise Learning Management System"
       title: "EduTrack"
-      subtitle: "Modern learning platform built with Ruby on Rails. Designed for scalability, performance and enterprise-grade education."
+      subtitle: "Modern learning platform designed for scalability, performance and enterprise-grade education."
       explore: "Explore"
       github: "GitHub"
     architecture:
