@@ -1,0 +1,27 @@
+<% if flash.any? %>
+  <div class="flash-container mt-3">
+    <% flash.each do |type, message| %>
+      <% 
+        icon_class = case type.to_sym
+                     when :notice then "bi-check-circle-fill"
+                     when :alert  then "bi-exclamation-triangle-fill"
+                     when :error  then "bi-x-circle-fill"
+                     else "bi-info-circle-fill"
+                     end
+        
+        bootstrap_class = case type.to_sym
+                          when :notice then "success"
+                          when :alert  then "danger"
+                          when :error  then "danger"
+                          else "primary"
+                          end
+      %>
+      
+      <div class="alert alert-<%= bootstrap_class %> alert-dismissible fade show d-flex align-items-center" role="alert">
+        <i class="bi <%= icon_class %> me-2"></i>
+        <div><%= message %></div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+<% end %>

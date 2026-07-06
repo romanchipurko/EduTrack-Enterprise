@@ -1,31 +1,32 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  navbar:
+    home: "Home"
+    features: "Features"
+    statistics: "Statistics"
+  home:
+    hero:
+      label: "Enterprise Learning Management System"
+      title: "EduTrack"
+      subtitle: "Modern learning platform built with Ruby on Rails. Designed for scalability, performance and enterprise-grade education."
+      explore: "Explore"
+      github: "GitHub"
+    architecture:
+      title: "Learning Architecture"
+      items:
+        learning_path: "Learning Path"
+        course: "Course"
+        lesson: "Lesson"
+        quiz: "Quiz"
+        certificate: "Certificate"
+    stack:
+      title: "Technology Stack"
+    about:
+      title: "About the project"
+      text: "EduTrack is a modern corporate learning management system designed to automate, organize, and oversee educational processes. The application facilitates effective professional development, enables centralized management of training programs, and allows for real-time tracking of learning progress."
+  footer:
+    title: "EduTrack Enterprise"
+    built_with: "Built with Ruby on Rails 8"
+    copyright: "© %{year} EduTrack. All rights reserved."
+  locales:
+    en: "English"
+    ru: "Русский"
