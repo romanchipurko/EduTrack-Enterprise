@@ -1,0 +1,42 @@
+<div class="devise-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="devise-card">
+          <div class="text-center mb-4">
+            <i class="bi bi-person-plus fs-1 text-primary"></i>
+            <h2 class="mt-2"><%= t('devise.registrations.new.title', default: 'Sign up') %></h2>
+          </div>
+
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'devise-form' }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <div class="mb-3">
+              <%= f.label :email, class: 'form-label fw-semibold' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg', placeholder: 'your@email.com' %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, class: 'form-label fw-semibold' %>
+              <% if @minimum_password_length %>
+                <small class="text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control form-control-lg', placeholder: '••••••••' %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password_confirmation, class: 'form-label fw-semibold' %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control form-control-lg', placeholder: '••••••••' %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.submit t('devise.registrations.new.sign_up', default: 'Sign up'), class: 'btn btn-primary btn-lg' %>
+            </div>
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

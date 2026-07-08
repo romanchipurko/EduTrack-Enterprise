@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   validates :password,
           presence: true,
+          confirmation: true,
           format: { with: /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.{8,}).+\z/ },
           if: :required_password?
 

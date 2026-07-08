@@ -1,0 +1,29 @@
+<div class="container py-5 mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <i class="bi bi-person-circle display-1 text-primary"></i>
+            <h3 class="mt-2"><%= @user.email %></h3>
+          </div>
+
+          <hr>
+
+          <div class="mb-3">
+            <strong><%= t('profile.email', default: 'Email') %>:</strong>
+            <span class="float-end"><%= @user.email %></span>
+          </div>
+          <div class="mb-3">
+            <strong><%= t('profile.role', default: 'Role') %>:</strong>
+            <span class="float-end"><%= @user.role || 'User' %></span>
+          </div>
+
+          <div class="d-grid mt-4">
+            <%= link_to t('profile.edit_profile', default: 'Edit profile'), edit_user_registration_path, class: 'btn btn-outline-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

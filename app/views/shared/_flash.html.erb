@@ -1,5 +1,5 @@
 <% if flash.any? %>
-  <div class="flash-container mt-3">
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
     <% flash.each do |type, message| %>
       <% 
         icon_class = case type.to_sym
@@ -9,18 +9,22 @@
                      else "bi-info-circle-fill"
                      end
         
-        bootstrap_class = case type.to_sym
-                          when :notice then "success"
-                          when :alert  then "danger"
-                          when :error  then "danger"
-                          else "primary"
-                          end
+        bg_class = case type.to_sym
+                   when :notice then "bg-success"
+                   when :alert  then "bg-warning"
+                   when :error  then "bg-danger"
+                   else "bg-primary"
+                   end
       %>
       
-      <div class="alert alert-<%= bootstrap_class %> alert-dismissible fade show d-flex align-items-center" role="alert">
-        <i class="bi <%= icon_class %> me-2"></i>
-        <div><%= message %></div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <div class="toast align-items-center text-white <%= bg_class %> border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+        <div class="d-flex">
+          <div class="toast-body d-flex align-items-center">
+            <i class="bi <%= icon_class %> me-2 fs-5"></i>
+            <%= message %>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
       </div>
     <% end %>
   </div>

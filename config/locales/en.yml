@@ -3,6 +3,14 @@ en:
     home: "Home"
     features: "Features"
     statistics: "Statistics"
+    profile: "Profile"
+    sign_out: "Sign out"
+    sign_in: "Sign in"
+    sign_up: "Sign up"
+  profile:
+    email: "Email"
+    role: "Role"
+    edit_profile: "Edit profile"
   home:
     hero:
       label: "Enterprise Learning Management System"

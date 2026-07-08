@@ -3,6 +3,14 @@ ru:
     home: "Главная"
     features: "Возможности"
     statistics: "Статистика"
+    profile: "Профиль"
+    sign_out: "Выйти"
+    sign_in: "Войти"
+    sign_up: "Регистрация"
+  profile:
+    email: "Email"
+    role: "Роль"
+    edit_profile: "Редактировать профиль"
   home:
     hero:
       label: "Корпоративная система управления обучением"

@@ -26,7 +26,7 @@ module EduTrack
 
     config.i18n.available_locales = [ :en, :ru ]
     config.i18n.default_locale = :en
-    
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
