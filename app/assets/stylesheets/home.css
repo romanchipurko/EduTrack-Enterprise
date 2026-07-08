@@ -1,0 +1,267 @@
+body {
+  background: #f8f9fa;
+}
+
+.hero {
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(145deg, #0d6efd 0%, #6f42c1 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-label {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 300;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.hero-title {
+  font-size: 5.5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #fff 40%, #e0c3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.hero-subtitle {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  font-size: 1.35rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+  border-radius: 50px;
+  transition: all 0.25s;
+}
+
+.hero-buttons .btn-primary {
+  background: #fff;
+  color: #0d6efd;
+  border: none;
+}
+
+.hero-buttons .btn-primary:hover {
+  background: rgba(255,255,255,0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.hero-buttons .btn-outline-light {
+  border-width: 2px;
+}
+
+.hero-buttons .btn-outline-light:hover {
+  background: #fff;
+  color: #0d6efd;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.architecture {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.architecture h2 {
+  text-align: center;
+  margin-bottom: 4rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.architecture-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.flow-item {
+  min-width: 150px;
+  padding: 1.5rem 1rem;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 600;
+  background: #fff;
+  transition: all 0.25s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.flow-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(13,110,253,0.08);
+  border-color: #0d6efd;
+}
+
+.flow-item i {
+  font-size: 2.5rem;
+  color: #0d6efd;
+}
+
+.flow-arrow {
+  font-size: 2rem;
+  color: #adb5bd;
+  line-height: 1;
+}
+
+.flow-arrow i {
+  font-size: 2.5rem;
+}
+
+.stack {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.stack h2 {
+  text-align: center;
+  margin-bottom: 4rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+}
+
+.stack-grid div {
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #e9ecef;
+  transition: all 0.25s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.stack-grid div:hover {
+  background: #0d6efd;
+  color: #fff;
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(13,110,253,0.15);
+  border-color: #0d6efd;
+}
+
+.stack-grid div i {
+  color: #0d6efd;
+  transition: 0.25s;
+}
+
+.stack-grid div:hover i {
+  color: #fff;
+}
+
+.about {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.about h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.about p {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #495057;
+  line-height: 1.9;
+}
+
+.navbar .dropdown .btn {
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  border-color: rgba(255,255,255,0.3);
+}
+
+.navbar .dropdown .btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.navbar .dropdown-menu {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  padding: 0.5rem;
+  min-width: 120px;
+}
+
+.navbar .dropdown-item {
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+}
+
+.navbar .dropdown-item.active {
+  background: #0d6efd;
+  color: white;
+}
+
+.navbar .dropdown-item:hover:not(.active) {
+  background: #f0f0f0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+  animation: fadeIn 0.9s ease-out;
+}
+
+.architecture,
+.stack,
+.about {
+  animation: fadeIn 0.9s ease-out;
+  animation-delay: 0.1s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.architecture { animation-delay: 0.2s; }
+.stack { animation-delay: 0.3s; }
+.about { animation-delay: 0.4s; }
