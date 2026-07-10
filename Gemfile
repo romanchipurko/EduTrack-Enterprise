@@ -46,7 +46,13 @@ gem "cssbundling-rails", "~> 1.4"
 # Centralization of locale data [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
 
+# [https://github.com/heartcombo/devise]
+gem "devise"
+
 group :development, :test do
+  # [https://rubygems.org/gems/factory_bot_rails]
+  gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
@@ -85,7 +91,16 @@ group :test do
   # [https://rubygems.org/gems/database_cleaner/versions/2.0.2]
   gem "database_cleaner", "~> 2.0", ">= 2.0.2"
 
+  # [https://github.com/thoughtbot/shoulda-matchers]
+  gem "shoulda-matchers", "~> 6.0"
+
+  # [https://rubygems.org/gems/simplecov]
+  gem "simplecov", "~> 0.22.0"
+
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # [https://github.com/rails/rails-controller-testing]
+  gem "rails-controller-testing"
 end

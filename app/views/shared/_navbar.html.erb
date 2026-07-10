@@ -11,6 +11,8 @@
         <li class="nav-item">
           <%= render "shared/locale_switcher" %>
         </li>
+
+        <% if user_signed_in? %>
         <li class="nav-item">
           <%= link_to t('navbar.home'), root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
         </li>
@@ -20,6 +22,33 @@
         <li class="nav-item">
           <%= link_to t('navbar.statistics'), "#stats", class: "nav-link" %>
         </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle fs-4 me-1"></i>
+              <span class="d-none d-lg-inline"><%= current_user.email %></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li>
+                <%= link_to profile_path, class: "dropdown-item" do %>
+                  <i class="bi bi-person me-2"></i> <%= t('navbar.profile', default: 'Profile') %>
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+              <%= button_to destroy_user_session_path, method: :delete, class: "dropdown-item text-danger w-100 border-0 bg-transparent", data: { turbo: false } do %>
+                <i class="bi bi-box-arrow-right me-2"></i> <%= t('navbar.sign_out', default: 'Sign out') %>
+              <% end %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to t('navbar.sign_in', default: 'Sign in'), new_user_session_path, class: "btn btn-outline-light btn-sm px-3 py-2 rounded-pill" %>
+          </li>
+          <li class="nav-item ms-2">
+            <%= link_to t('navbar.sign_up', default: 'Sign up'), new_user_registration_path, class: "btn btn-light btn-sm px-3 py-2 rounded-pill fw-semibold" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
