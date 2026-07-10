@@ -1,0 +1,77 @@
+.learning-paths-page {
+  padding-top: 80px;
+}
+
+.learning-path-card {
+  border: 1px solid var(--color-gray-200) !important;
+  background: var(--color-white);
+  border-radius: 20px !important;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(var(--theme-primary-rgb), 0.08) !important;
+    border-color: var(--theme-primary) !important;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 24px !important;
+  }
+
+  .card-text {
+    flex: 1 1 auto;
+    font-size: 15px;
+  }
+
+  .mt-3 {
+    margin-top: 16px;
+  }
+
+  .btn {
+    align-self: flex-start;
+  }
+}
+
+.btn-outline-primary {
+  border-color: var(--theme-primary);
+  color: var(--theme-primary);
+}
+
+.search-input:focus {
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 0 3px rgba(var(--theme-primary-rgb), 0.25);
+}
+
+.learning-path-detail-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 0;
+
+  .breadcrumb-item {
+    a {
+      color: var(--theme-primary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.active {
+      color: var(--color-gray-600);
+    }
+  }
+}

@@ -3,8 +3,10 @@
     <h2><i class="bi bi-diagram-3 me-2 text-primary"></i><%= t('home.architecture.title') %></h2>
     <div class="architecture-flow">
       <div class="flow-item">
-        <i class="bi bi-signpost-2 fs-1 d-block mb-2 text-primary"></i>
-        <%= t('home.architecture.items.learning_path') %>
+        <%= link_to learning_paths_path(locale: I18n.locale), class: "text-decoration-none" do %>
+          <i class="bi bi-signpost-2 fs-1 d-block mb-2 text-primary"></i>
+          <span class="text-body"><%= t('home.architecture.items.learning_path') %></span>
+        <% end %>
       </div>
       <div class="flow-arrow"><i class="bi bi-arrow-down-short"></i></div>
       <div class="flow-item">

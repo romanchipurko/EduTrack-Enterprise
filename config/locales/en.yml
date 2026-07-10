@@ -38,3 +38,17 @@ en:
   locales:
     en: "English"
     ru: "Русский"
+  learning_paths:
+    index:
+      title: "All Learning Paths"
+      subtitle: "Choose a learning path and start mastering new skills"
+      search_placeholder: "Search by title..."
+      search_button: "Search"
+    show:
+      breadcrumb_all: "All Paths"
+      back_to_list: "Back to list"
+    card:
+      details: "Details"
+    empty:
+      title: "Nothing found"
+      subtitle: "Try changing your search query"

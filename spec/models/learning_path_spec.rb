@@ -14,18 +14,15 @@ RSpec.describe LearningPath, type: :model do
     end
 
     it do
-      expect(learning_path).to validate_length_of(:description)
-        .is_at_most(500)
+      expect(learning_path).to validate_length_of(:description).is_at_most(500)
     end
 
     it do
-      expect(learning_path).to allow_value("Ruby on Rails 8")
-        .for(:title)
+      expect(learning_path).to allow_value("Ruby on Rails 8").for(:title)
     end
 
     it do
-      expect(learning_path).not_to allow_value("Ruby@Rails!")
-        .for(:title)
+      expect(learning_path).not_to allow_value("Ruby@Rails!").for(:title)
     end
   end
 
