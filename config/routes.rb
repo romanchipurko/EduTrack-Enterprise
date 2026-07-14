@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   root "home#index"
 
   scope "/:locale", locale: /en|ru/ do

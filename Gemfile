@@ -52,6 +52,16 @@ gem "devise"
 # [https://github.com/Casecommons/pg_search]
 gem "pg_search"
 
+# RoR framework for creating elegant backends for website administration. [https://github.com/activeadmin/activeadmin]
+gem "activeadmin"
+
+# [https://github.com/blocknotes/activeadmin_blaze_theme]
+gem "activeadmin_blaze_theme"
+
+gem "pundit"
+
+gem "aasm"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
