@@ -3,7 +3,7 @@ FROM ruby:3.4.1
 
 # Install packages needed to build gems
 RUN apt update -qq && \
-    apt install -y build-essential git curl pkg-config libpq-dev libyaml-dev nodejs npm && \
+    apt install -y build-essential git curl pkg-config libpq-dev libyaml-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Rails app lives here
@@ -18,4 +18,4 @@ COPY . .
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/dev"]
