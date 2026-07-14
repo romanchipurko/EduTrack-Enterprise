@@ -95,7 +95,7 @@ group :test do
   gem "shoulda-matchers", "~> 6.0"
 
   # [https://rubygems.org/gems/simplecov]
-  gem "simplecov", "~> 0.22.0"
+  gem "simplecov", "~> 1.0.1"
 
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
