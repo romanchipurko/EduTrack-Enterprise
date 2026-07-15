@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
   root "home#index"
 
-  scope "/:locale", locale: /en|ru/ do
+  scope "(:locale)", locale: /en|ru/ do
+    ActiveAdmin.routes(self)
     get "/", to: "home#index"
     devise_for :users
     get "profile", to: "users#show"
