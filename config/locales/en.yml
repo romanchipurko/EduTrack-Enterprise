@@ -52,3 +52,17 @@ en:
     empty:
       title: "Nothing found"
       subtitle: "Try changing your search query"
+  active_admin:
+    dashboard:
+      title: "Dashboard"
+      new_users_table:
+        new_users: "New Users"
+      overall_info_table:
+        overall: "Overall Statistics"
+        total_users: "Total Users"
+        total_students: "Total Students"
+        total_instructors: "Total Instructors"
+        total_admins: "Total Admins"
+    users:
+      title: "Users"
+      main: "User Details"

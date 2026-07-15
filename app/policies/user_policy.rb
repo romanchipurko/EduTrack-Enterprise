@@ -25,7 +25,7 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      if user.acmin?
+      if user.admin?
         scope.all
       else
         scope.where(id: user.id)

@@ -19,4 +19,12 @@ class User < ApplicationRecord
   validates :password, format: { with: PASSWORD_REGEXP }, if: :password_required?
 
   validates :role, presence: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[email created_at role]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
 end

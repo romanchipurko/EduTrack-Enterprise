@@ -40,11 +40,14 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-#
+# [https://github.com/rails/dartsass-rails]
 gem "dartsass-rails"
 
-# 
+# [https://github.com/twbs/bootstrap-rubygem]
 gem "bootstrap", "~> 5.3"
+
+# [https://github.com/aasm/aasm]
+gem "aasm"
 
 # Centralization of locale data [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"

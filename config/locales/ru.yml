@@ -52,3 +52,17 @@ ru:
     empty:
       title: "Ничего не найдено"
       subtitle: "Попробуйте изменить поисковый запрос"
+  active_admin:
+    dashboard:
+      title: "Панель управления"
+      new_users_table:
+        new_users: "Новые пользователи"
+      overall_info_table:
+        overall: "Общая статистика"
+        total_users: "Всего пользователей"
+        total_students: "Всего студентов"
+        total_instructors: "Всего преподавателей"
+        total_admins: "Всего администраторов"
+    users:
+      title: "Пользователи"
+      main: "Данные пользователя"
