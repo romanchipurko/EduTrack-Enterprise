@@ -8,7 +8,7 @@ module Admin
     def authorize_admin!
       authorize :admin, :access?
     rescue Pundit::NotAuthorizedError
-      redirect_to root_path, alert: "You have no rights for this."
+      redirect_to root_path, alert: I18n.t("admin.access_denied")
     end
-  end  
+  end
 end

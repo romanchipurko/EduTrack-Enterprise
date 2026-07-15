@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || ( user == record && !record.admin? )
+    user.admin? || (user == record && !record.admin?)
   end
 
   def destroy?
@@ -31,5 +31,5 @@ class UserPolicy < ApplicationPolicy
         scope.where(id: user.id)
       end
     end
-  end  
+  end
 end

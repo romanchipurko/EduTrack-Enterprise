@@ -66,3 +66,4 @@ en:
     users:
       title: "Users"
       main: "User Details"
+    access_denied: "You have no rights for this"

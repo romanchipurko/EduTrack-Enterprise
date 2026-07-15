@@ -10,7 +10,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :created_at
-  filter :role, as: :select, collection: User.roles.keys.map { |r| [r.humanize, r] }
+  filter :role, as: :select, collection: User.roles.keys.map { |r| [ r.humanize, r ] }
 
   index title: I18n.t("active_admin.users.title") do
     selectable_column
@@ -41,9 +41,9 @@ ActiveAdmin.register User do
         f.input :password_confirmation
       end
       f.input :role, as: :select,
-                     collection: User.roles.keys.map { |r| [r.humanize, r] },
+                     collection: User.roles.keys.map { |r| [ r.humanize, r ] },
                      include_blank: false,
-                     selected: f.object.new_record? ? 'student' : f.object.role
+                     selected: f.object.new_record? ? "student" : f.object.role
     end
     f.actions
   end
