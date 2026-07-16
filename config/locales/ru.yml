@@ -67,3 +67,6 @@ ru:
       title: "Пользователи"
       main: "Данные пользователя"
     access_denied: "У вас нет прав на это"
+    learning_paths:
+      title: "Курсы"
+      main: "Данные курсов"

@@ -67,3 +67,6 @@ en:
       title: "Users"
       main: "User Details"
     access_denied: "You have no rights for this"
+    learning_paths:
+      title: "Learning Paths"
+      main: "Learning Parhs Details"
