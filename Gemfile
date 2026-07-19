@@ -64,8 +64,10 @@ gem "activeadmin"
 # [https://github.com/blocknotes/activeadmin_blaze_theme]
 gem "activeadmin_blaze_theme"
 
+# [https://github.com/varvet/pundit]
 gem "pundit"
 
+# [https://github.com/aasm/aasm]
 gem "aasm"
 
 group :development, :test do
