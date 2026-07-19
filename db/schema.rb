@@ -20,7 +20,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_112104) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["title"], name: "index_learning_paths_on_title"
+    t.index ["title"], name: "index_learning_paths_on_title", unique: true
+    t.check_constraint "title::text ~ '^[[:alpha:][:digit:][:space:].&+#-]+$'::text", name: "learning_paths_title_check"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,7 +1,7 @@
 class LearningPathsController < ApplicationController
   def index
     @learning_paths = LearningPath.all
-    @learning_paths = @learning_paths.where("title ILIKE ?", "%#{params[:search]}%") if params[:search].present?
+    @learning_paths = @learning_paths.search_by_content(params[:search]) if params[:search].present?
   end
 
   def show

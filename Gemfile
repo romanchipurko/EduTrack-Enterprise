@@ -49,6 +49,9 @@ gem "rails-i18n", "~> 8.0"
 # [https://github.com/heartcombo/devise]
 gem "devise"
 
+# [https://github.com/Casecommons/pg_search]
+gem "pg_search"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
