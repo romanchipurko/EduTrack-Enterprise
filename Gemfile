@@ -46,9 +46,6 @@ gem "dartsass-rails"
 # [https://github.com/twbs/bootstrap-rubygem]
 gem "bootstrap", "~> 5.3"
 
-# [https://github.com/aasm/aasm]
-gem "aasm"
-
 # Centralization of locale data [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
 
@@ -72,6 +69,9 @@ gem "aasm"
 
 # [https://github.com/sidekiq/sidekiq]
 gem "sidekiq"
+
+# [https://github.com/mongodb/mongoid]
+gem "mongoid"
 
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]

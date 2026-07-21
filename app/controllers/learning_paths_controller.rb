@@ -1,4 +1,6 @@
 class LearningPathsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @learning_paths = LearningPath.all
     @learning_paths = @learning_paths.search_by_content(params[:search]) if params[:search].present?

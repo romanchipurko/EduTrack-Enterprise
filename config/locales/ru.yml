@@ -47,6 +47,11 @@ ru:
     show:
       breadcrumb_all: "Все треки"
       back_to_list: "Назад к списку"
+      curriculum: "Учебная программа"
+      no_lessons: "В этом учебном пути пока нет уроков."
+      lesson_prefix: "Урок %{number}"
+      video_material: "Видеоматериал"
+      watch_video: "Смотреть видео"
     card:
       details: "Подробнее"
     empty:
