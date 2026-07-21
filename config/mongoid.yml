@@ -240,7 +240,7 @@ development:
 test:
   clients:
     default:
-      uri: <%= ENV.fetch('MONGODB_URL', '').sub('edutrack_development', 'edutrack_test') %>
+      uri: <%= ENV.fetch('MONGODB_URL', 'mongodb://127.0.0.1:27017/edutrack_test').sub('edutrack_development', 'edutrack_test') %>
       options:
         read:
           mode: :primary
