@@ -95,7 +95,7 @@ group :test do
   gem "database_cleaner", "~> 2.0", ">= 2.0.2"
 
   # [https://github.com/thoughtbot/shoulda-matchers]
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 8.0"
 
   # [https://rubygems.org/gems/simplecov]
   gem "simplecov", "~> 0.22.0"
