@@ -79,7 +79,7 @@ group :development, :test do
   gem "rspec-rails", "~> 6.1.0"
 
   # [https://rubygems.org/gems/pry/versions/0.14.1]
-  gem "pry", "~> 0.14.1"
+  gem "pry", "~> 0.16.0"
 
   # [https://rubygems.org/gems/faker/versions/3.4.2]
   gem "faker", "~> 3.4", ">= 3.4.2"
