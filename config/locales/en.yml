@@ -47,6 +47,11 @@ en:
     show:
       breadcrumb_all: "All Paths"
       back_to_list: "Back to list"
+      curriculum: "Curriculum"
+      no_lessons: "There are no lessons in this learning path yet."
+      lesson_prefix: "Lesson %{number}"
+      video_material: "Video material"
+      watch_video: "Watch video"
     card:
       details: "Details"
     empty:
