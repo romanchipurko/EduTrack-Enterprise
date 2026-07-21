@@ -3,8 +3,25 @@ require 'rails_helper'
 RSpec.describe 'LearningPaths', type: :request do
   let!(:rails_path) { create(:learning_path, title: 'Ruby on Rails', description: 'Web development') }
   let!(:python_path) { create(:learning_path, title: 'Python for Data Science', description: 'Data analysis') }
+  let(:admin_user) { create(:user, role: :admin) }
 
-  describe 'GET /index' do
+  describe 'Unauthenticated access' do
+    it 'redirects to sign in page on index' do
+      get learning_paths_path(locale: 'en')
+      expect(response).to redirect_to(new_user_session_path(locale: 'en'))
+    end
+
+    it 'redirects to sign in page on show' do
+      get learning_path_path(rails_path, locale: 'en')
+      expect(response).to redirect_to(new_user_session_path(locale: 'en'))
+    end
+  end
+
+  describe 'GET /index (Authenticated)' do
+    before do
+      sign_in admin_user
+    end
+
     it 'returns http success' do
       get learning_paths_path(locale: 'en')
       expect(response).to have_http_status(:ok)
@@ -47,7 +64,11 @@ RSpec.describe 'LearningPaths', type: :request do
     end
   end
 
-  describe 'GET /show' do
+  describe 'GET /show (Authenticated)' do
+    before do
+      sign_in admin_user
+    end
+
     it 'returns http success' do
       get learning_path_path(rails_path, locale: 'en')
       expect(response).to have_http_status(:ok)
