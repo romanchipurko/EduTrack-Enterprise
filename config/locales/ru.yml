@@ -38,3 +38,17 @@ ru:
   locales:
     en: "English"
     ru: "Русский"
+  learning_paths:
+    index:
+      title: "Все учебные треки"
+      subtitle: "Выберите путь обучения и начните осваивать новые навыки"
+      search_placeholder: "Поиск по названию..."
+      search_button: "Найти"
+    show:
+      breadcrumb_all: "Все треки"
+      back_to_list: "Назад к списку"
+    card:
+      details: "Подробнее"
+    empty:
+      title: "Ничего не найдено"
+      subtitle: "Попробуйте изменить поисковый запрос"

@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     get "/", to: "home#index"
     devise_for :users
     get "profile", to: "users#show"
+    resources :learning_paths, only: [ :index, :show ]
   end
 end

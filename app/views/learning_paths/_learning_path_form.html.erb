@@ -1,0 +1,15 @@
+<div class="col-md-6 col-lg-4">
+  <div class="card learning-path-card h-100">
+    <div class="card-body p-4 d-flex flex-column">
+      <h5 class="card-title fw-bold text-dark">
+        <%= path.title %>
+      </h5>
+      <p class="card-text text-muted flex-grow-1">
+        <%= truncate(path.description, length: 120) if path.description.present? %>
+      </p>
+      <div class="mt-3">
+        <%= link_to t('learning_paths.card.details'), learning_path_path(path), class: "btn btn-outline-primary rounded-pill px-4" %>
+      </div>
+    </div>
+  </div>
+</div>
