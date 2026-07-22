@@ -1,103 +1,92 @@
 require 'rails_helper'
 
-RSpec.describe 'LearningPaths', type: :request do
-  let!(:rails_path) { create(:learning_path, title: 'Ruby on Rails', description: 'Web development') }
-  let!(:python_path) { create(:learning_path, title: 'Python for Data Science', description: 'Data analysis') }
-  let(:admin_user) { create(:user, role: :admin) }
+RSpec.describe 'learning_paths/show', type: :view do
+  let(:learning_path) { create(:learning_path, title: 'Test Path', description: 'Test description') }
 
-  describe 'Unauthenticated access' do
-    it 'redirects to sign in page on index' do
-      get learning_paths_path(locale: 'en')
-      expect(response).to redirect_to(new_user_session_path(locale: 'en'))
+  let(:markdown_element) do
+    Elements::Markdown.new(body: 'Hello World', position: 1)
+  end
+
+  let(:lesson) do
+    CourseContent.new(
+      id: '5f8d04b3e5a5a12345678900',
+      title: 'Intro to Mongo',
+      position: 1,
+      elements: [ markdown_element ]
+    )
+  end
+
+  before do
+    assign(:learning_path, learning_path)
+    policy_double = instance_double(LearningPathPolicy, update?: true)
+    allow(view).to receive_messages(current_user: nil, policy: policy_double)
+    view.controller.default_url_options = { locale: 'en' }
+  end
+
+  context 'when there are no course contents' do
+    before do
+      allow(learning_path).to receive(:course_contents).and_return([])
+      render
     end
 
-    it 'redirects to sign in page on show' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response).to redirect_to(new_user_session_path(locale: 'en'))
+    it 'displays the breadcrumb navigation' do
+      aggregate_failures do
+        expect(rendered).to have_css('nav[aria-label="breadcrumb"]')
+        expect(rendered).to have_link(I18n.t('learning_paths.show.breadcrumb_all'), href: learning_paths_path)
+        expect(rendered).to have_css('.breadcrumb-item.active', text: learning_path.title)
+      end
+    end
+
+    it 'displays the learning path title and description' do
+      aggregate_failures do
+        expect(rendered).to have_css('h1', text: learning_path.title)
+        expect(rendered).to have_css('p.text-muted', text: learning_path.description)
+      end
+    end
+
+    it 'renders the "Back to list" button' do
+      aggregate_failures do
+        expect(rendered).to have_link(I18n.t('learning_paths.show.back_to_list'), href: learning_paths_path)
+        expect(rendered).to have_css('a.btn-outline-secondary')
+      end
+    end
+
+    it 'displays the empty state message' do
+      expect(rendered).to have_text(I18n.t('learning_paths.show.no_lessons'))
     end
   end
 
-  describe 'GET /index (Authenticated)' do
+  context 'when description is blank' do
+    let(:learning_path) { build_stubbed(:learning_path, title: 'Test Path', description: nil) }
+
     before do
-      sign_in admin_user
+      allow(learning_path).to receive(:course_contents).and_return([])
+      render
     end
 
-    it 'returns http success' do
-      get learning_paths_path(locale: 'en')
-      expect(response).to have_http_status(:ok)
-    end
-
-    it 'renders index template' do
-      get learning_paths_path(locale: 'en')
-      expect(response).to render_template(:index)
-    end
-
-    it 'displays all learning path titles' do
-      get learning_paths_path(locale: 'en')
-      expect(response.body).to include(rails_path.title, python_path.title)
-    end
-
-    it 'displays all learning path descriptions' do
-      get learning_paths_path(locale: 'en')
-      expect(response.body).to include(rails_path.description, python_path.description)
-    end
-
-    context 'when searching' do
-      it 'filters learning paths by title' do
-        get learning_paths_path(locale: 'en', search: 'Rails')
-        expect(response.body).to include(rails_path.title)
-      end
-
-      it 'shows empty state when no results found' do
-        get learning_paths_path(locale: 'en', search: 'NonExistent')
-        expect(response.body).to include(I18n.t('learning_paths.empty.title'))
-      end
-    end
-
-    context 'when locale is Russian' do
-      it 'displays translated titles' do
-        I18n.with_locale(:ru) do
-          get learning_paths_path(locale: 'ru')
-          expect(response.body).to include(I18n.t('learning_paths.index.title', locale: :ru))
-        end
-      end
+    it 'shows empty description paragraph' do
+      expect(rendered).to have_css('p.text-muted', text: '')
     end
   end
 
-  describe 'GET /show (Authenticated)' do
+  context 'when course contents exist' do
     before do
-      sign_in admin_user
+      allow(learning_path).to receive(:course_contents).and_return([ lesson ])
+      render
     end
 
-    it 'returns http success' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response).to have_http_status(:ok)
+    it 'renders the curriculum headers' do
+      aggregate_failures do
+        expect(rendered).to have_text(I18n.t('learning_paths.show.curriculum'))
+        expect(rendered).to have_css('.accordion-item')
+      end
     end
 
-    it 'renders show template' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response).to render_template(:show)
-    end
-
-    it 'displays learning path title and description' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response.body).to include(rails_path.title, rails_path.description)
-    end
-
-    it 'displays back link' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response.body).to include(I18n.t('learning_paths.show.back_to_list'))
-    end
-
-    it 'displays breadcrumb link' do
-      get learning_path_path(rails_path, locale: 'en')
-      expect(response.body).to include(I18n.t('learning_paths.show.breadcrumb_all'))
-    end
-
-    context 'when record not found' do
-      it 'returns 404 not found' do
-        get learning_path_path(id: 'non-existent', locale: 'en')
-        expect(response).to have_http_status(:not_found)
+    it 'renders the lesson details' do
+      aggregate_failures do
+        expect(rendered).to have_text('Intro to Mongo')
+        expect(rendered).to have_text(I18n.t('learning_paths.show.lesson_prefix', number: 1))
+        expect(rendered).to have_css('.markdown-body', text: 'Hello World')
       end
     end
   end

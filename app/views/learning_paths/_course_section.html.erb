@@ -1,5 +1,5 @@
 <div class="accordion shadow-sm rounded-4" id="courseContentAccordion">
-  <% @learning_path.course_contents.each_with_index do |lesson, index| %>
+  <% @learning_path.course_contents.sort_by(&:position).each_with_index do |lesson, index| %>
     <div class="accordion-item border-0 <%= 'border-bottom' unless index == @learning_path.course_contents.size - 1 %>">
       <h2 class="accordion-header" id="heading-<%= lesson.id %>">
         <button class="accordion-button <%= 'collapsed' unless index == 0 %> bg-white fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= lesson.id %>" aria-expanded="<%= index == 0 ? 'true' : 'false' %>" aria-controls="collapse-<%= lesson.id %>">
@@ -10,7 +10,7 @@
 
       <div id="collapse-<%= lesson.id %>" class="accordion-collapse collapse <%= 'show' if index == 0 %>" aria-labelledby="heading-<%= lesson.id %>" data-bs-parent="#courseContentAccordion">
         <div class="accordion-body bg-light">
-          <% lesson.elements.each do |element| %>
+          <% lesson.elements.sort_by(&:position).each do |element| %>
             <%= render "course_content", element: element %>
           <% end %>
         </div>

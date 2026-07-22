@@ -1,0 +1,101 @@
+<div class="container py-5 mt-4">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to t('nav.home'), root_path %></li>
+      <li class="breadcrumb-item"><%= link_to t('nav.curriculum'), edit_learning_path_path(@course_content.learning_path_id) %></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= t('lessons.edit') %></li>
+    </ol>
+  </nav>
+
+  <div class="learning-path-detail-card rounded-4 p-4 p-md-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+      <h2 class="fw-bold m-0"><%= t('lessons.editor') %>: <span class="text-primary"><%= @course_content.title %></span></h2>
+    </div>
+
+    <%= form_with(model: @course_content, local: true, class: "needs-validation") do |f| %>
+      <div class="row mb-5">
+        <div class="col-md-8">
+          <%= f.label :title, t('lessons.title'), class: "form-label fw-bold" %>
+          <%= f.text_field :title, class: "form-control rounded-3 py-2" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :position, t('lessons.position'), class: "form-label fw-bold" %>
+          <%= f.number_field :position, class: "form-control rounded-3 py-2" %>
+        </div>
+      </div>
+
+      <h4 class="fw-bold mb-3"><%= t('lessons.content') %></h4>
+      
+      <div id="elements_container" class="mb-4">
+        <%= f.fields_for :elements do |element_form| %>
+          <%= render "course_contents/elements/element_fields", f: element_form %>
+        <% end %>
+      </div>
+
+      <div class="d-flex justify-content-center p-4 border rounded-4 bg-light mb-4 border-dashed">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-plus-circle me-1"></i> <%= t('lessons.add_element') %>
+          </button>
+          
+          <ul class="dropdown-menu shadow-sm border-0 rounded-3">
+            <li>
+              <button type="button" class="dropdown-item py-2" onclick="addNestedElement('video')"><%= t('elements.types.video') %></button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item py-2" onclick="addNestedElement('markdown')"><%= t('elements.types.markdown') %></button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item py-2" onclick="addNestedElement('code')"><%= t('elements.types.code') %></button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item py-2" onclick="addNestedElement('asset')"><%= t('elements.types.asset') %></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+        <%= link_to t('common.cancel'), edit_learning_path_path(@course_content.learning_path_id), class: "btn btn-outline-secondary px-4 rounded-3" %>
+        <%= f.submit t('common.save_lesson'), class: "btn btn-primary px-4 rounded-3 shadow-sm" %>
+      </div>
+
+      <template id="template_video">
+        <%= f.fields_for :elements, Elements::Video.new, child_index: 'NEW_RECORD' do |element_form| %>
+          <%= render "course_contents/elements/element_fields", f: element_form %>
+        <% end %>
+      </template>
+
+      <template id="template_markdown">
+        <%= f.fields_for :elements, Elements::Markdown.new, child_index: 'NEW_RECORD' do |element_form| %>
+          <%= render "course_contents/elements/element_fields", f: element_form %>
+        <% end %>
+      </template>
+
+      <template id="template_code">
+        <%= f.fields_for :elements, Elements::Code.new, child_index: 'NEW_RECORD' do |element_form| %>
+          <%= render "course_contents/elements/element_fields", f: element_form %>
+        <% end %>
+      </template>
+
+      <template id="template_asset">
+        <%= f.fields_for :elements, Elements::Asset.new, child_index: 'NEW_RECORD' do |element_form| %>
+          <%= render "course_contents/elements/element_fields", f: element_form %>
+        <% end %>
+      </template>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function addNestedElement(type) {
+    const template = document.getElementById(`template_${type}`);
+    if (!template) return;
+
+    const container = document.getElementById('elements_container');
+    const time = new Date().getTime();
+    let content = template.innerHTML.replace(/NEW_RECORD/g, time);
+    
+    container.insertAdjacentHTML('beforeend', content);
+  }
+</script>

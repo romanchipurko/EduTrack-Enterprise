@@ -1,0 +1,54 @@
+<div class="card mb-3 border-primary nested-element-form" id="element_<%= f.index %>">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+    <span class="fw-bold text-primary">
+      <i class="bi bi-grip-vertical text-muted me-1"></i>
+      <%= f.object.model_name.human %> 
+    </span>
+
+    <div class="form-check form-switch m-0">
+      <%= f.hidden_field :_destroy, class: 'destroy-flag' %>
+      <%= button_tag type: 'button', class: 'btn btn-sm btn-outline-danger border-0 remove-element-btn', onclick: "this.closest('.nested-element-form').style.display='none'; this.closest('.nested-element-form').querySelector('.destroy-flag').value='1';" do %>
+        <i class="bi bi-trash"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <%= f.hidden_field :_type, value: f.object.class.name %>
+    
+    <div class="row">
+      <div class="col-md-2 mb-3">
+        <%= f.label :position, t('lessons.position'), class: "form-label small fw-bold" %>
+        <%= f.number_field :position, class: "form-control form-control-sm" %>
+      </div>
+
+      <div class="col-md-10">
+        <% case f.object %>
+        <% when Elements::Video, Elements::Asset %>
+          <div class="mb-3">
+            <%= f.label :url, class: "form-label small fw-bold" %>
+            <%= f.text_field :url, class: "form-control form-control-sm", placeholder: t('elements.placeholders.url') %>
+          </div>
+
+        <% when Elements::Markdown %>
+          <div class="mb-3">
+            <%= f.label :body, class: "form-label small fw-bold" %>
+            <%= f.text_area :body, class: "form-control form-control-sm", rows: 5, placeholder: t('elements.placeholders.markdown') %>
+          </div>
+
+        <% when Elements::Code %>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <%= f.label :language, class: "form-label small fw-bold" %>
+              <%= f.select :language, Elements::Code::SUPPORTED_LANGUAGES, { include_blank: true }, class: "form-select form-select-sm" %>
+            </div>
+            <div class="col-md-12 mb-3">
+              <%= f.label :content, class: "form-label small fw-bold" %>
+              <%= f.text_area :content, class: "form-control form-control-sm font-monospace", rows: 6 %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

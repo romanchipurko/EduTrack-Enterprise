@@ -1,4 +1,7 @@
 en:
+  nav:
+    home: "Home"
+    curriculum: "Curriculum"
   navbar:
     home: "Home"
     features: "Features"
@@ -7,10 +10,42 @@ en:
     sign_out: "Sign out"
     sign_in: "Sign in"
     sign_up: "Sign up"
+  common:
+    create: "Create Learning Path"
+    save_changes: "Save Details"
+    save_lesson: "Save Lesson"
+    cancel: "Cancel"
+    edit_content: "Edit Content"
+    watch_video: "Watch video"
+    confirm_delete: "Are you sure?"
+  flash:
+    form_error: "Please check the form for errors."
+  errors:
+    form_check: "Please check the form for errors."
+  lessons:
+    editor: "Lesson Editor"
+    title: "Lesson Title"
+    position: "Position"
+    content: "Content Elements"
+    add_element: "Add Element"
+    edit: "Edit Lesson"
+    updated: "Lesson updated successfully!"
+    deleted: "Lesson deleted."
+  elements:
+    types:
+      video: "Video"
+      markdown: "Text (Markdown)"
+      code: "Code Snippet"
+      asset: "Asset"
+    placeholders:
+      url: "https://..."
+      markdown: "Type your markdown here..."
   profile:
     email: "Email"
     role: "Role"
+    default_role: "User"
     edit_profile: "Edit profile"
+    create_path: "Create Learning Path"
   home:
     hero:
       label: "Enterprise Learning Management System"
@@ -39,6 +74,16 @@ en:
     en: "English"
     ru: "Русский"
   learning_paths:
+    created_notice: "Course created successfully!"
+    curriculum: "Curriculum Builder"
+    edit_details: "Course Details"
+    add_lesson: "Add Lesson"
+    no_lessons: "No lessons yet. Start by adding one!"
+    elements_count:
+      one: "1 element inside"
+      other: "%{count} elements inside"
+    new_title: "Create a New Learning Path"
+    new_subtitle: "Set up the foundation for your new course, including its first lesson and an optional assessment."
     index:
       title: "All Learning Paths"
       subtitle: "Choose a learning path and start mastering new skills"
@@ -47,16 +92,32 @@ en:
     show:
       breadcrumb_all: "All Paths"
       back_to_list: "Back to list"
+      edit_curriculum: "Edit Curriculum"
       curriculum: "Curriculum"
       no_lessons: "There are no lessons in this learning path yet."
       lesson_prefix: "Lesson %{number}"
       video_material: "Video material"
+      asset_material: "Attached File / Resource"
       watch_video: "Watch video"
     card:
       details: "Details"
     empty:
       title: "Nothing found"
       subtitle: "Try changing your search query"
+    form:
+      general_info: "General Information"
+      title: "Course Title"
+      title_placeholder: "e.g., Advanced Ruby on Rails Architecture"
+      description: "Course Description"
+      description_placeholder: "Briefly describe what students will learn..."
+      initial_content: "Initial Content"
+      lesson_hint: "Every learning path needs at least one lesson to get started."
+      lesson_title: "First Lesson Title"
+      lesson_title_placeholder: "e.g., Getting Started with ActiveJob"
+      assessment: "Assessment (Optional)"
+      quiz_title: "First Quiz Title"
+      quiz_title_placeholder: "e.g., ActiveJob Basics Knowledge Check"
+      quiz_hint: "You can leave this blank and add quizzes later."
   active_admin:
     dashboard:
       title: "Dashboard"
@@ -78,4 +139,4 @@ en:
     access_denied: "You have no rights for this"
     learning_paths:
       title: "Learning Paths"
-      main: "Learning Parhs Details"
+      main: "Learning Paths Details"

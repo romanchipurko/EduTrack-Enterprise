@@ -1,0 +1,69 @@
+<div class="container py-5 mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="learning-path-detail-card rounded-4 p-4 p-md-5">
+        <div class="text-center mb-5">
+          <h1 class="fw-bold"><%= t('learning_paths.new_title') %></h1>
+          <p class="text-muted">
+            <%= t('learning_paths.new_subtitle') %>
+          </p>
+        </div>
+
+        <%= form_with(model: @form, url: learning_paths_path, local: true, class: "needs-validation") do |f| %>
+          <% if @form.errors.any? %>
+            <div class="alert alert-danger rounded-3 shadow-sm mb-4">
+              <h6 class="alert-heading fw-bold mb-1"><%= t('errors.template.header', count: @form.errors.count, model: 'form') %></h6>
+              <ul class="mb-0 small">
+                <% @form.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-5">
+            <h4 class="border-bottom pb-2 mb-3 text-primary">1. <%= t('learning_paths.form.general_info') %></h4>
+            
+            <div class="mb-3">
+              <%= f.label :title, t('learning_paths.form.title') + " *", class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control search-input rounded-3 py-2", required: true, placeholder: t('learning_paths.form.title_placeholder') %>
+            </div>
+            
+            <div class="mb-3">
+              <%= f.label :description, t('learning_paths.form.description'), class: "form-label fw-bold" %>
+              <%= f.text_area :description, class: "form-control search-input rounded-3", rows: 4, placeholder: t('learning_paths.form.description_placeholder') %>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <h4 class="border-bottom pb-2 mb-3 text-primary">2. <%= t('learning_paths.form.initial_content') %></h4>
+            <p class="text-muted small mb-3">
+              <%= t('learning_paths.form.lesson_hint') %>
+            </p>
+            
+            <div class="mb-3">
+              <%= f.label :lesson_title, t('learning_paths.form.lesson_title') + " *", class: "form-label fw-bold" %>
+              <%= f.text_field :lesson_title, class: "form-control search-input rounded-3 py-2", required: true, placeholder: t('learning_paths.form.lesson_title_placeholder') %>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <h4 class="border-bottom pb-2 mb-3 text-primary">3. <%= t('learning_paths.form.assessment') %></h4>
+            
+            <div class="mb-3">
+              <%= f.label :quiz_title, t('learning_paths.form.quiz_title'), class: "form-label fw-bold" %>
+              <%= f.text_field :quiz_title, class: "form-control search-input rounded-3 py-2", placeholder: t('learning_paths.form.quiz_title_placeholder') %>
+              <div class="form-text text-muted mt-2">
+                <i class="bi bi-info-circle me-1"></i> <%= t('learning_paths.form.quiz_hint') %>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top">
+            <%= f.submit t('common.create'), class: "btn btn-primary px-4 rounded-3 shadow-sm" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
