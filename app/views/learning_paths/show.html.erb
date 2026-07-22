@@ -14,6 +14,9 @@
         <hr class="my-4">
         <div class="d-flex gap-3">
           <%= link_to t('learning_paths.show.back_to_list'), learning_paths_path, class: "btn btn-outline-secondary rounded-pill px-4" %>
+          <% if policy(@learning_path).update? %>
+            <%= link_to t('learning_paths.show.edit_curriculum'), edit_learning_path_path(@learning_path), class: 'btn btn-outline-warning' %>
+          <% end %>
         </div>
       </div>
 
@@ -21,7 +24,7 @@
         <h3 class="fw-bold mb-4"><%= t('learning_paths.show.curriculum') %></h3>
 
         <% if @learning_path.course_contents.any? %>
-          <%= render "course_section"%>
+          <%= render "course_section" %>
         <% else %>
           <div class="alert alert-secondary border-0 shadow-sm rounded-4 text-center p-4">
             <%= t('learning_paths.show.no_lessons') %>

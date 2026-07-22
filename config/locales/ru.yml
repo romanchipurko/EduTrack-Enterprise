@@ -1,4 +1,7 @@
 ru:
+  nav:
+    home: "Главная"
+    curriculum: "Учебная программа"
   navbar:
     home: "Главная"
     features: "Возможности"
@@ -7,10 +10,42 @@ ru:
     sign_out: "Выйти"
     sign_in: "Войти"
     sign_up: "Регистрация"
+  common:
+    create: "Создать учебный трек"
+    save_changes: "Сохранить изменения"
+    save_lesson: "Сохранить урок"
+    cancel: "Отмена"
+    edit_content: "Управление контентом"
+    watch_video: "Смотреть видео"
+    confirm_delete: "Вы уверены?"
+  flash:
+    form_error: "Пожалуйста, проверьте форму на наличие ошибок."
+  errors:
+    form_check: "Пожалуйста, проверьте форму на наличие ошибок."
+  lessons:
+    editor: "Редактор урока"
+    title: "Название урока"
+    position: "Позиция"
+    content: "Элементы контента"
+    add_element: "Добавить элемент"
+    edit: "Редактировать урок"
+    updated: "Урок успешно обновлен!"
+    deleted: "Урок удален."
+  elements:
+    types:
+      video: "Видео"
+      markdown: "Текст (Markdown)"
+      code: "Фрагмент кода"
+      asset: "Ресурс / Файл"
+    placeholders:
+      url: "https://..."
+      markdown: "Введите ваш текст здесь..."
   profile:
     email: "Email"
     role: "Роль"
+    default_role: "Пользователь"
     edit_profile: "Редактировать профиль"
+    create_path: "Создать учебную траекторию"
   home:
     hero:
       label: "Корпоративная система управления обучением"
@@ -39,6 +74,18 @@ ru:
     en: "English"
     ru: "Русский"
   learning_paths:
+    created_notice: "Курс успешно создан!"
+    curriculum: "Конструктор курса"
+    edit_details: "Детали курса"
+    add_lesson: "Добавить урок"
+    no_lessons: "Уроков пока нет. Создайте первый!"
+    elements_count:
+      one: "1 элемент внутри"
+      few: "%{count} элемента внутри"
+      many: "%{count} элементов внутри"
+      other: "%{count} элементов внутри"
+    new_title: "Создать новый учебный трек"
+    new_subtitle: "Заложите основу для нового курса, включая первый урок и опциональный тест."
     index:
       title: "Все учебные треки"
       subtitle: "Выберите путь обучения и начните осваивать новые навыки"
@@ -47,16 +94,32 @@ ru:
     show:
       breadcrumb_all: "Все треки"
       back_to_list: "Назад к списку"
+      edit_curriculum: "Редактировать курс"
       curriculum: "Учебная программа"
       no_lessons: "В этом учебном пути пока нет уроков."
       lesson_prefix: "Урок %{number}"
       video_material: "Видеоматериал"
+      asset_material: "Прикрепленный файл / ресурс"
       watch_video: "Смотреть видео"
     card:
       details: "Подробнее"
     empty:
       title: "Ничего не найдено"
       subtitle: "Попробуйте изменить поисковый запрос"
+    form:
+      general_info: "Общая информация"
+      title: "Название курса"
+      title_placeholder: "например, Архитектура приложений на Ruby on Rails"
+      description: "Описание курса"
+      description_placeholder: "Кратко опишите, чему научатся студенты..."
+      initial_content: "Начальный контент"
+      lesson_hint: "Каждому учебному треку нужен хотя бы один урок для старта."
+      lesson_title: "Название первого урока"
+      lesson_title_placeholder: "например, Введение в ActiveJob"
+      assessment: "Аттестация (опционально)"
+      quiz_title: "Название первого теста"
+      quiz_title_placeholder: "например, Проверка знаний по ActiveJob"
+      quiz_hint: "Вы можете оставить это поле пустым и добавить тесты позже."
   active_admin:
     dashboard:
       title: "Панель управления"

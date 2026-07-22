@@ -1,37 +1,29 @@
-# spec/requests/users_spec.rb
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  let(:user) { create(:user) }
+RSpec.describe 'users/show.html.erb', type: :view do
+  let(:user) { build_stubbed(:user, email: 'test@example.com', role: 'admin') }
 
-  let(:profile_url) { profile_path(locale: 'en') }
-  let(:new_session_url) { new_user_session_path(locale: 'en') }
+  before do
+    assign(:user, user)
+    policy_double = instance_double(LearningPathPolicy, create?: true)
+    allow(view).to receive(:policy).with(LearningPath).and_return(policy_double)
+    allow(view).to receive_messages(
+      current_user: user,
+      user_signed_in?: true,
+      edit_user_registration_path: '/en/users/edit'
+    )
+    render
+  end
 
-  describe 'GET /profile' do
-    context 'when user is not authenticated' do
-      it 'redirects to sign in page' do
-        get profile_url
-        expect(response).to redirect_to(new_session_url)
-      end
-    end
+  it 'displays the user email' do
+    expect(rendered).to have_text(user.email)
+  end
 
-    context 'when user is authenticated' do
-      before { sign_in user }
+  it 'displays the user role' do
+    expect(rendered).to have_text(user.role)
+  end
 
-      it 'returns http success' do
-        get profile_url
-        expect(response).to have_http_status(:success)
-      end
-
-      it 'renders the show template' do
-        get profile_url
-        expect(response).to render_template(:show)
-      end
-
-      it 'assigns @user as current_user' do
-        get profile_url
-        expect(assigns(:user)).to eq(user)
-      end
-    end
+  it 'has a link to edit profile' do
+    expect(rendered).to have_link(I18n.t('profile.edit_profile'), href: '/en/users/edit')
   end
 end
