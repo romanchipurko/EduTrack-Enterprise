@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :role
+  permit_params :email, :role
 
   menu priority: 2, label: proc { I18n.t("active_admin.users.title") }
 
@@ -10,7 +10,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :created_at
-  filter :role, as: :select, collection: User.roles.keys.map { |r| [ r.humanize, r ] }
+  filter :role, as: :select, collection: User.roles.keys
 
   index title: I18n.t("active_admin.users.title") do
     selectable_column
@@ -33,13 +33,23 @@ ActiveAdmin.register User do
     end
   end
 
+  action_item :reset_password, only: :show do
+    button_to I18n.t("active_admin.users.reset_password.button"),
+              reset_password_admin_user_path(resource),
+              method: :post,
+              form: { class: "btn btn-sm btn-outline-secondary", data: { confirm: I18n.t("active_admin.users.reset_password.confirm") } }
+  end
+
+  member_action :reset_password, method: :post do
+    user = User.find(params[:id])
+    user.send_reset_password_instructions
+    redirect_to admin_user_path(user),
+                notice: I18n.t("active_admin.users.reset_password.success", email: user.email)
+  end
+
   form do |f|
     f.inputs I18n.t("active_admin.users.main") do
       f.input :email
-      if f.object.new_record?
-        f.input :password
-        f.input :password_confirmation
-      end
       f.input :role, as: :select,
                      collection: User.roles.keys.map { |r| [ r.humanize, r ] },
                      include_blank: false,

@@ -5,7 +5,7 @@ ActiveAdmin.register LearningPath do
 
   filter :title
 
-  index title: I18n.t("active_admin.learning_paths.title") do
+  index title: proc { I18n.t("active_admin.learning_paths.title") } do
     selectable_column
     id_column
     column :title

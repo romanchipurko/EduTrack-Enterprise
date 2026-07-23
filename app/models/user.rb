@@ -11,11 +11,6 @@ class User < ApplicationRecord
 
   enum :role, ROLES
 
-  validates :email,
-          presence: true,
-          uniqueness: { case_sensitive: false },
-          format: { with: URI::MailTo::EMAIL_REGEXP }
-
   validates :password, format: { with: PASSWORD_REGEXP }, if: :password_required?
 
   validates :role, presence: true
@@ -26,5 +21,11 @@ class User < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     []
+  end
+
+  private
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 end

@@ -70,6 +70,9 @@ gem "pundit"
 # [https://github.com/aasm/aasm]
 gem "aasm"
 
+# [https://github.com/sidekiq/sidekiq]
+gem "sidekiq"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
