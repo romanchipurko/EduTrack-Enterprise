@@ -7,4 +7,12 @@ class LearningPath < ApplicationRecord
 
   validates :title, presence: true, format: { with: /\A[\p{L}\p{N}\s\-.&+#]+\z/ }, length: { minimum: 5, maximum: 50 }
   validates :description, presence: true, length: { maximum: 500 }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
 end
