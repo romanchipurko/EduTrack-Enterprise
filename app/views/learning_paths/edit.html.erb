@@ -1,0 +1,69 @@
+<div class="container py-5 mt-4">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to t('nav.home'), root_path %></li>
+      <li class="breadcrumb-item"><%= link_to @learning_path.title, learning_path_path(@learning_path) %></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= t('learning_paths.curriculum') %></li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="learning-path-detail-card rounded-4 p-4 sticky-top" style="top: 100px;">
+        <h4 class="fw-bold mb-3"><%= t('learning_paths.edit_details') %></h4>
+        <%= form_with(model: @learning_path, local: true) do |f| %>
+          <div class="mb-3">
+            <%= f.label :title, class: "form-label fw-bold" %>
+            <%= f.text_field :title, class: "form-control rounded-3" %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :description, class: "form-label fw-bold" %>
+            <%= f.text_area :description, class: "form-control rounded-3", rows: 4 %>
+          </div>
+          <%= f.submit t('common.save_changes'), class: "btn btn-outline-primary w-100 rounded-3" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold m-0"><%= t('learning_paths.curriculum') %></h2>
+        <%= link_to new_learning_path_course_content_path(@learning_path), class: "btn btn-primary rounded-3" do %>
+          <i class="bi bi-plus-circle me-1"></i> <%= t('learning_paths.add_lesson') %>
+        <% end %>
+      </div>
+
+      <% if @course_contents.any? %>
+        <div class="list-group shadow-sm rounded-4">
+          <% @course_contents.each do |content| %>
+            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-4">
+              <div>
+                <h5 class="mb-1 fw-bold">
+                  <span class="badge bg-secondary me-2"><%= content.position %></span>
+                  <%= content.title %>
+                </h5>
+                <small class="text-muted">
+                  <%= t('learning_paths.elements_count', count: content.elements.count) %>
+                </small>
+              </div>
+              
+              <div class="btn-group">
+                <%= link_to edit_course_content_path(content), class: "btn btn-sm btn-outline-primary" do %>
+                  <i class="bi bi-pencil-square me-1"></i> <%= t('common.edit_content') %>
+                <% end %>
+                
+                <%= button_to course_content_path(content), method: :delete, class: "btn btn-sm btn-outline-danger", form: { style: 'display:inline-block;' }, data: { turbo_confirm: t('common.confirm_delete') } do %>
+                  <i class="bi bi-trash"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="alert alert-info rounded-4">
+          <%= t('learning_paths.no_lessons') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -40,8 +40,11 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# [https://github.com/rails/cssbundling-rails]
-gem "cssbundling-rails", "~> 1.4"
+# [https://github.com/rails/dartsass-rails]
+gem "dartsass-rails"
+
+# [https://github.com/twbs/bootstrap-rubygem]
+gem "bootstrap", "~> 5.3"
 
 # Centralization of locale data [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
@@ -51,6 +54,24 @@ gem "devise"
 
 # [https://github.com/Casecommons/pg_search]
 gem "pg_search"
+
+# RoR framework for creating elegant backends for website administration. [https://github.com/activeadmin/activeadmin]
+gem "activeadmin"
+
+# [https://github.com/blocknotes/activeadmin_blaze_theme]
+gem "activeadmin_blaze_theme"
+
+# [https://github.com/varvet/pundit]
+gem "pundit"
+
+# [https://github.com/aasm/aasm]
+gem "aasm"
+
+# [https://github.com/sidekiq/sidekiq]
+gem "sidekiq"
+
+# [https://github.com/mongodb/mongoid]
+gem "mongoid"
 
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]

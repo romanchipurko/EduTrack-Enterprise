@@ -1,4 +1,3 @@
-# spec/views/users/show.html.erb_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'users/show.html.erb', type: :view do
@@ -7,7 +6,15 @@ RSpec.describe 'users/show.html.erb', type: :view do
   before do
     assign(:user, user)
 
-    allow(view).to receive_messages(current_user: user, user_signed_in?: true, edit_user_registration_path: '/en/users/edit')
+    without_partial_double_verification do
+      allow(view).to receive(:policy).and_return(double(create?: true))
+    end
+
+    allow(view).to receive_messages(
+      current_user: user,
+      user_signed_in?: true,
+      edit_user_registration_path: '/en/users/edit'
+    )
 
     render
   end
@@ -21,6 +28,6 @@ RSpec.describe 'users/show.html.erb', type: :view do
   end
 
   it 'has a link to edit profile' do
-    expect(rendered).to have_link('Edit profile', href: '/en/users/edit')
+    expect(rendered).to have_link(I18n.t('profile.edit_profile'), href: '/en/users/edit')
   end
 end

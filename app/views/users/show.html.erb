@@ -11,16 +11,19 @@
           <hr>
 
           <div class="mb-3">
-            <strong><%= t('profile.email', default: 'Email') %>:</strong>
+            <strong><%= t('profile.email') %>:</strong>
             <span class="float-end"><%= @user.email %></span>
           </div>
           <div class="mb-3">
-            <strong><%= t('profile.role', default: 'Role') %>:</strong>
-            <span class="float-end"><%= @user.role || 'User' %></span>
+            <strong><%= t('profile.role') %>:</strong>
+            <span class="float-end"><%= @user.role || t('profile.default_role') %></span>
           </div>
 
           <div class="d-grid mt-4">
-            <%= link_to t('profile.edit_profile', default: 'Edit profile'), edit_user_registration_path, class: 'btn btn-outline-primary' %>
+            <%= link_to t('profile.edit_profile'), edit_user_registration_path, class: 'btn btn-outline-primary' %>
+          </div>
+          <div class="d-grid mt-4">
+            <%= link_to t('profile.create_path'), new_learning_path_path, class: 'btn btn-success' if policy(LearningPath).create? %>
           </div>
         </div>
       </div>

@@ -33,6 +33,13 @@
                   <i class="bi bi-person me-2"></i> <%= t('navbar.profile', default: 'Profile') %>
                 <% end %>
               </li>
+              <li>
+                <% if current_user.admin? %>
+                  <%= link_to admin_root_path, class: "dropdown-item" do %>
+                    <i class= "bi bi-person-gear me-2"></i> <%= "Admin panel" %>
+                  <% end %>
+                <% end %>
+              </li>
               <li><hr class="dropdown-divider"></li>
               <li>
               <%= button_to destroy_user_session_path, method: :delete, class: "dropdown-item text-danger w-100 border-0 bg-transparent", data: { turbo: false } do %>

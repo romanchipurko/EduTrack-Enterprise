@@ -28,6 +28,16 @@ jobs:
             --health-interval=10s
             --health-timeout=5s
             --health-retries=20
+            
+      mongo:
+        image: mongo:8
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
           
     env:
       RAILS_ENV: test
@@ -37,6 +47,7 @@ jobs:
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
       REDIS_URL: redis://localhost:6379/0
+      MONGODB_URL: mongodb://localhost:27017/edutrack_test
       
     steps:
       - name: Checkout code
@@ -54,7 +65,10 @@ jobs:
           bundler-cache: true
 
       - name: Prepare DB
-        run: bin/rails db:prepare  
+        run: bin/rails db:prepare
+      
+      - name: Build CSS
+        run: bin/rails dartsass:build
 
       - name: Run Tests
         run: bundle exec rspec
