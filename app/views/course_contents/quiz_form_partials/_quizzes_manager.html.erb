@@ -1,5 +1,5 @@
 <% unless course_content.new_record? %>
-  <h4 class="fw-bold mb-3 mt-5 border-bottom pb-2"><%= t('quizzes.title', default: 'Тесты к уроку') %></h4>
+  <h4 class="fw-bold mb-3 mt-5 border-bottom pb-2"><%= t('quizzes.title') %></h4>
   
   <% if course_content.quizzes.any? %>
     <div class="list-group mb-4">
@@ -7,13 +7,13 @@
         <div class="list-group-item d-flex justify-content-between align-items-center rounded-3 mb-2 shadow-sm border border-primary border-opacity-25">
           <div>
             <strong class="text-primary"><i class="bi bi-patch-question me-2"></i><%= quiz.title %></strong>
-            <span class="badge bg-secondary ms-2"><%= quiz.questions.count %> вопросов</span>
+            <span class="badge bg-secondary ms-2"><%= t('quizzes.questions_count', count: quiz.questions.count) %></span>
           </div>
           <div class="d-flex gap-2">
             <%= link_to edit_course_content_quiz_path(course_content, quiz), class: "btn btn-sm btn-outline-primary" do %>
-              <i class="bi bi-pencil"></i> Редактировать
+              <i class="bi bi-pencil"></i> <%= t('common.edit') %>
             <% end %>
-            <%= link_to course_content_quiz_path(course_content, quiz), data: { turbo_method: :delete, turbo_confirm: 'Удалить тест?' }, class: "btn btn-sm btn-outline-danger" do %>
+            <%= link_to course_content_quiz_path(course_content, quiz), data: { turbo_method: :delete, turbo_confirm: t('quizzes.delete_confirm') }, class: "btn btn-sm btn-outline-danger" do %>
               <i class="bi bi-trash"></i>
             <% end %>
           </div>
@@ -23,14 +23,14 @@
     
     <div class="text-center mb-4">
       <%= link_to new_course_content_quiz_path(course_content), class: "btn btn-outline-primary btn-sm rounded-pill" do %>
-        <i class="bi bi-plus-circle me-1"></i> Добавить еще один тест
+        <i class="bi bi-plus-circle me-1"></i> <%= t('quizzes.add_another') %>
       <% end %>
     </div>
   <% else %>
     <div class="alert alert-light border-dashed text-center rounded-4 p-4 mb-4">
-      <p class="text-muted mb-3">В этом уроке еще нет тестов для проверки знаний.</p>
+      <p class="text-muted mb-3"><%= t('quizzes.empty_state') %></p>
       <%= link_to new_course_content_quiz_path(course_content), class: "btn btn-primary rounded-pill px-4" do %>
-        <i class="bi bi-plus-circle me-1"></i> Создать тест
+        <i class="bi bi-plus-circle me-1"></i> <%= t('quizzes.create_new') %>
       <% end %>
     </div>
   <% end %>

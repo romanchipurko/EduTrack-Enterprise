@@ -21,7 +21,7 @@
     <% end %>
   </div>
 
-  <%= render 'course_contents/quizzes_manager', course_content: course_content %>
+  <%= render 'course_contents/quiz_form_partials/quizzes_manager', course_content: course_content %>
 
   <div class="d-flex justify-content-center p-4 border rounded-4 bg-light mb-4 border-dashed">
     <div class="dropdown">
@@ -44,7 +44,7 @@
     <%= f.submit t('common.save_lesson', default: 'Сохранить урок'), class: "btn btn-primary px-4 rounded-3 shadow-sm" %>
   </div>
 
-  <%= render 'course_contents/js_templates', f: f %>
+  <%= render 'course_contents/quiz_form_partials/js_templates', f: f %>
 
 <% end %>
 

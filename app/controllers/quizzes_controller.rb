@@ -1,19 +1,21 @@
 class QuizzesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_course_content
-  before_action :set_quiz, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_quiz, only: [ :show, :edit, :update, :destroy, :submit ]
 
   def show
-    @previous_attempts = current_user.quiz_attempts.where(quiz_id: @quiz.id.to_s).order(created_at: :desc)
+    authorize @quiz
   end
 
   def new
     @quiz = @course_content.quizzes.build
     @quiz.questions.build
+    authorize @quiz
   end
 
   def create
     @quiz = @course_content.quizzes.build(quiz_params)
+    authorize @quiz
 
     if @quiz.save
       redirect_to edit_course_content_path(@course_content), notice: t("quizzes.created")
@@ -23,9 +25,13 @@ class QuizzesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @quiz
+  end
 
   def update
+    authorize @quiz
+
     if @quiz.update(quiz_params)
       redirect_to edit_course_content_path(@course_content), notice: t("quizzes.updated")
     else
@@ -35,11 +41,13 @@ class QuizzesController < ApplicationController
   end
 
   def destroy
+    authorize @quiz
     @quiz.destroy
     redirect_to edit_course_content_path(@course_content), notice: t("quizzes.deleted")
   end
 
   def submit
+    authorize @quiz
     @score = 0
     @total = @quiz.questions.count
     @user_answer = params[:answers] || {}
@@ -49,6 +57,7 @@ class QuizzesController < ApplicationController
     end
 
     save_attempt
+    render :show
   end
 
   private
@@ -68,7 +77,7 @@ class QuizzesController < ApplicationController
         :id,
         :text,
         :correct_answer,
-        :_desctroy,
+        :_destroy,
         options: []
       ]
     )

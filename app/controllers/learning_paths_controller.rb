@@ -8,6 +8,7 @@ class LearningPathsController < ApplicationController
 
   def show
     @learning_path = LearningPath.find(params[:id])
+    @course_contents = CourseContent.includes(:quizzes).where(learning_path_id: @learning_path.id.to_s).order_by(position: :asc)
   end
 
   def new

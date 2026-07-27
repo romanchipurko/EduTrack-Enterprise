@@ -14,10 +14,14 @@ ru:
     create: "Создать учебный трек"
     save_changes: "Сохранить изменения"
     save_course_content: "Сохранить урок"
+    save: "Сохранить"
     cancel: "Отмена"
     edit_content: "Управление контентом"
     watch_video: "Смотреть видео"
     confirm_delete: "Вы уверены?"
+    back: "Назад"
+    next: "Далее"
+    edit: "Редактировать"
   flash:
     form_error: "Пожалуйста, проверьте форму на наличие ошибок."
   errors:
@@ -124,6 +128,44 @@ ru:
     created: "Тест успешно создан"
     updated: "Тест успешно обновлен"
     deleted: "Тест удален"
+    title: "Тесты к уроку"
+    questions_count:
+      one: "%{count} вопрос"
+      few: "%{count} вопроса"
+      many: "%{count} вопросов"
+      other: "%{count} вопроса"
+    delete_confirm: "Удалить тест?"
+    add_another: "Добавить еще один тест"
+    empty_state: "В этом уроке еще нет тестов для проверки знаний."
+    create_new: "Создать тест"
+    knowledge_check: "Проверка знаний"
+    show:
+      breadcrumb_course: "Курс"
+    results:
+      your_score: "Ваш результат: %{score} из %{total} (%{percentage}%%)"
+      perfect_score: "Отличная работа! Вы ответили правильно на все вопросы."
+      has_errors: "В некоторых вопросах допущены ошибки. Мы скрыли правильные ответы, чтобы вы могли попробовать еще раз!"
+      retry: "Пройти тест заново"
+    summary:
+      title: "Ваши ответы"
+    wizard:
+      submit: "Отправить ответы"
+      alert_choose: "Пожалуйста, выберите вариант ответа, чтобы продолжить."
+      alert_submit: "Пожалуйста, выберите вариант ответа перед отправкой теста."
+    form:
+      title_label: "Название теста"
+      questions_title: "Вопросы"
+      add_question: "Добавить вопрос"
+      option_placeholder: "Вариант"
+      min_options_alert: "Вопрос должен содержать минимум 2 варианта ответа."
+      question_label: "Вопрос"
+      question_text_label: "Текст вопроса"
+      options_hint: "Варианты ответов (отметьте правильный)"
+      add_option: "Добавить вариант"
+    edit:
+      title: "Редактировать тест"
+    new:
+      title: "Создать новый тест"
   active_admin:
     dashboard:
       title: "Панель управления"

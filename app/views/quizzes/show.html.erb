@@ -1,7 +1,7 @@
 <div class="container py-5 mt-4">
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><%= link_to "Курс", learning_path_path(@course_content.learning_path_id) %></li>
+      <li class="breadcrumb-item"><%= link_to t('quizzes.show.breadcrumb_course'), learning_path_path(@course_content.learning_path_id) %></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @quiz.title %></li>
     </ol>
   </nav>
@@ -9,12 +9,19 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="card rounded-4 shadow-sm border-0 p-4 p-md-5 mb-5">
-        <h2 class="fw-bold text-dark mb-2"><%= @quiz.title %></h2>
-        <p class="text-muted mb-4">Вопросов в тесте: <%= @quiz.questions.count %></p>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="fw-bold text-dark m-0"><%= @quiz.title %></h2>
+          <span class="badge bg-secondary rounded-pill py-2 px-3">
+            <%= t('quizzes.questions_count', count: @quiz.questions.count) %>
+          </span>
+        </div>
 
-        <%= render 'quizzes/show_partials/history' if @previous_attempts.any? && !defined?(@user_answer) %>
-        <%= render 'quizzes/show_partials/results' if defined?(@score) %>
-        <%= render 'quizzes/show_partials/wizard' %>
+        <% if defined?(@user_answer) %>
+          <%= render 'quizzes/show_partials/results' %>
+          <%= render 'quizzes/show_partials/summary' %>
+        <% else %>
+          <%= render 'quizzes/show_partials/wizard' %>
+        <% end %>
       </div>
     </div>
   </div>
