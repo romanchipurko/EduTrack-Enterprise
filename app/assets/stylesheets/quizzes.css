@@ -1,0 +1,11 @@
+.quiz-radio:not(:disabled) + .quiz-option-label:hover {
+  background-color: #f8f9fa;
+  border-color: #0d6efd;
+  cursor: pointer;
+}
+
+.quiz-radio:checked:not(:disabled) + .quiz-option-label {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-color: #0d6efd;
+}

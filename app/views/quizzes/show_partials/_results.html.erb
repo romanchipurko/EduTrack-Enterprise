@@ -1,0 +1,11 @@
+<div class="alert <%= @score == @total ? 'alert-success' : 'alert-info' %> rounded-4 mb-5 p-4 text-center">
+  <h4 class="alert-heading fw-bold">Ваш результат: <%= @score %> из <%= @total %></h4>
+  <% if @score == @total %>
+    <p class="mb-0">Отличная работа! Вы ответили правильно на все вопросы. 🎉</p>
+  <% else %>
+    <p class="mb-0">Проанализируйте свои ошибки ниже. Вы можете пройти тест заново.</p>
+  <% end %>
+  <div class="mt-3">
+    <%= link_to "Пройти заново", course_content_quiz_path(@course_content, @quiz), class: "btn btn-outline-dark rounded-pill" %>
+  </div>
+</div>

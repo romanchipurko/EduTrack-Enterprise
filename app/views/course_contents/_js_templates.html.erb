@@ -1,0 +1,23 @@
+<template id="template_video">
+  <%= f.fields_for :elements, Elements::Video.new, child_index: 'NEW_RECORD' do |element_form| %>
+    <%= render "course_contents/elements/element_fields", f: element_form %>
+  <% end %>
+</template>
+
+<template id="template_markdown">
+  <%= f.fields_for :elements, Elements::Markdown.new, child_index: 'NEW_RECORD' do |element_form| %>
+    <%= render "course_contents/elements/element_fields", f: element_form %>
+  <% end %>
+</template>
+
+<template id="template_code">
+  <%= f.fields_for :elements, Elements::Code.new, child_index: 'NEW_RECORD' do |element_form| %>
+    <%= render "course_contents/elements/element_fields", f: element_form %>
+  <% end %>
+</template>
+
+<template id="template_asset">
+  <%= f.fields_for :elements, Elements::Asset.new, child_index: 'NEW_RECORD' do |element_form| %>
+    <%= render "course_contents/elements/element_fields", f: element_form %>
+  <% end %>
+</template>

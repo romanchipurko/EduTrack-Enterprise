@@ -1,7 +1,25 @@
 class CourseContentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_learning_path, only: [ :new, :create ]
   before_action :set_course_content, only: [ :edit, :update, :destroy ]
-  before_action :authorize_learning_path!, only: [ :edit, :update, :destroy ]
+  before_action :authorize_learning_path!
+
+  def new
+    @course_content = CourseContent.new(learning_path_id: @learning_path.id.to_s)
+    @course_content.position = CourseContent.where(learning_path_id: @learning_path.id.to_s).count + 1
+  end
+
+  def create
+    @course_content = CourseContent.new(course_content_params)
+    @course_content.learning_path_id = @learning_path.id.to_s
+
+    if @course_content.save
+      redirect_to edit_course_content_path(@course_content), notice: t("lessons.created", default: "Урок успешно создан")
+    else
+      flash.now[:alert] = t("errors.form_check")
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   def edit; end
 
@@ -21,6 +39,10 @@ class CourseContentsController < ApplicationController
   end
 
   private
+
+  def set_learning_path
+    @learning_path = LearningPath.find(params[:learning_path_id])
+  end
 
   def set_course_content
     @course_content = CourseContent.find(params[:id])

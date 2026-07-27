@@ -118,6 +118,10 @@ en:
       quiz_title: "First Quiz Title"
       quiz_title_placeholder: "e.g., ActiveJob Basics Knowledge Check"
       quiz_hint: "You can leave this blank and add quizzes later."
+  quizzes:
+    created: "Quiz successfully created"
+    updated: "Quiz successfully updated"
+    deleted: "Quiz deleted"
   active_admin:
     dashboard:
       title: "Dashboard"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_05_112104) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_27_095312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -22,6 +22,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_112104) do
     t.datetime "updated_at", null: false
     t.index ["title"], name: "index_learning_paths_on_title", unique: true
     t.check_constraint "title::text ~ '^[[:alpha:][:digit:][:space:].&+#-]+$'::text", name: "learning_paths_title_check"
+  end
+
+  create_table "quiz_attempts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "quiz_id", null: false
+    t.integer "score", default: 0
+    t.integer "total", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_quiz_attempts_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -37,4 +47,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_112104) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "quiz_attempts", "users"
 end

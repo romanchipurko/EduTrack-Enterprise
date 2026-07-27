@@ -120,6 +120,10 @@ ru:
       quiz_title: "Название первого теста"
       quiz_title_placeholder: "например, Проверка знаний по ActiveJob"
       quiz_hint: "Вы можете оставить это поле пустым и добавить тесты позже."
+  quizzes:
+    created: "Тест успешно создан"
+    updated: "Тест успешно обновлен"
+    deleted: "Тест удален"
   active_admin:
     dashboard:
       title: "Панель управления"

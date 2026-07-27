@@ -36,6 +36,6 @@ class LearningPathsController < ApplicationController
   private
 
   def course_builder_params
-    params.require(:course_builder_form).permit(:title, :description, :lesson_title)
+    params.require(:course_builder_form).permit(:title, :description, :lesson_title, :quiz_title)
   end
 end

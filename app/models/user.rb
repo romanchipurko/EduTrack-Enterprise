@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   PASSWORD_REGEXP = /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.{8,}).+\z/
 
+  has_many :quiz_attempts, dependent: :destroy
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   enum :role, ROLES

@@ -1,0 +1,94 @@
+<%= form_with(model: [@course_content, quiz], local: true, class: "needs-validation") do |f| %>
+  <div class="mb-4">
+    <%= f.label :title, "Название теста", class: "form-label fw-bold" %>
+    <%= f.text_field :title, class: "form-control rounded-3 py-2", required: true %>
+  </div>
+
+  <h4 class="fw-bold border-bottom pb-2 mb-4">Вопросы</h4>
+
+  <div id="questions_container">
+    <%= f.fields_for :questions do |q_form| %>
+      <%= render 'quizzes/question_fields', f: q_form %>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center p-4 border rounded-4 bg-light mb-4 border-dashed">
+    <button type="button" class="btn btn-outline-primary rounded-3" onclick="addQuestion()">
+      <i class="bi bi-plus-circle me-1"></i> Добавить вопрос
+    </button>
+  </div>
+
+  <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+    <%= link_to "Отмена", edit_course_content_path(@course_content), class: "btn btn-outline-secondary px-4 rounded-3" %>
+    <%= f.submit "Сохранить тест", class: "btn btn-primary px-4 rounded-3 shadow-sm" %>
+  </div>
+
+  <template id="template_question">
+    <%= f.fields_for :questions, Question.new, child_index: 'NEW_QUESTION' do |q_form| %>
+      <%= render 'quizzes/question_fields', f: q_form %>
+    <% end %>
+  </template>
+<% end %>
+
+<script>
+  function addQuestion() {
+    const template = document.getElementById('template_question');
+    const container = document.getElementById('questions_container');
+    const time = new Date().getTime();
+    
+    let content = template.innerHTML.replace(/NEW_QUESTION/g, time);
+    container.insertAdjacentHTML('beforeend', content);
+  }
+
+  function addOption(button) {
+    const container = button.closest('.card-body').querySelector('.options-container');
+    let optionsCount = container.querySelectorAll('.option-row').length;
+
+    if (optionsCount >= 6) return;
+
+    const objectName = container.dataset.objectName;
+    const newIndex = optionsCount;
+
+    const html = `
+      <div class="input-group mb-2 option-row">
+        <div class="input-group-text bg-white">
+          <input type="radio" name="${objectName}[correct_answer]" value="${newIndex}" class="form-check-input mt-0" required>
+        </div>
+        <input type="text" name="${objectName}[options][]" class="form-control form-control-sm" placeholder="Вариант ${newIndex + 1}" required>
+        <button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="removeOption(this)"><i class="bi bi-x-lg"></i></button>
+      </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', html);
+
+    if (optionsCount + 1 >= 6) {
+      button.style.display = 'none';
+    }
+  }
+
+  function removeOption(button) {
+    const container = button.closest('.options-container');
+    const rows = container.querySelectorAll('.option-row');
+    
+    if (rows.length <= 2) {
+      alert('Вопрос должен содержать минимум 2 варианта ответа.');
+      return;
+    }
+
+    button.closest('.option-row').remove();
+    
+    const remainingRows = container.querySelectorAll('.option-row');
+    remainingRows.forEach((row, index) => {
+      const radio = row.querySelector('input[type="radio"]');
+      radio.value = index;
+      
+      const textInput = row.querySelector('input[type="text"]');
+      textInput.placeholder = 'Вариант ' + (index + 1);
+    });
+
+    const addButton = container.closest('.card-body').querySelector('.add-option-btn');
+    if (addButton) {
+      addButton.style.display = 'inline-block';
+    }
+  }
+</script>

@@ -1,7 +1,7 @@
 class CourseBuilderForm
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :lesson_title
+  attr_accessor :title, :description, :lesson_title, :quiz_title
 
   validates :title, :lesson_title, presence: true
 
@@ -37,7 +37,8 @@ class CourseBuilderForm
   private
 
   def create_mongo_documents(path_id:)
-    CourseContent.create!(learning_path_id: path_id, title: lesson_title, position: 1)
+    lesson = CourseContent.create!(learning_path_id: path_id.to_s, title: lesson_title, position: 1)
+    lesson.quizzes.create!(title: quiz_title) if quiz_title.present?
   end
 
   def promote_errors(record)

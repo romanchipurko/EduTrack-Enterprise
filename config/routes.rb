@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :learning_paths do
       resources :course_contents, shallow: true do
         resources :elements, module: :course_contents, only: [ :new, :create, :edit, :update, :destroy ]
+        resources :quizzes, shallow: false do
+          post :submit, on: :member
+        end
       end
     end
   end

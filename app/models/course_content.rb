@@ -2,6 +2,8 @@ class CourseContent
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  has_many :quizzes, dependent: :destroy
+
   field :learning_path_id, type: String
   field :title, type: String
   field :position, type: Integer
