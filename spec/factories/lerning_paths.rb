@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :learning_path do
-    title { "Ruby on Rails" }
-    description { Faker::Lorem.paragraph }
+    sequence(:title) { |n| "Learning Path #{n}" }
+    description { "Description of the learning path" }
   end
 end

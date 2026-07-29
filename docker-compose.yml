@@ -31,6 +31,24 @@ services:
       - '27017:27017'
     volumes:
       - mongo_data:/data/db
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/edu-track
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      REDIS_URL: redis://redis:6379/0
+      MONGODB_URL: mongodb://mongo:27017
+    depends_on:
+      - db
+      - redis
+      - mongo
   
   web:
     environment:
