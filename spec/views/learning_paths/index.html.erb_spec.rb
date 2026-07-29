@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'learning_paths/index', type: :view do
   let(:learning_paths) { build_stubbed_list(:learning_path, 3) }
+  let(:paginated_paths) { Kaminari.paginate_array(learning_paths).page(1) }
 
   before do
-    assign(:learning_paths, learning_paths)
+    assign(:learning_paths, paginated_paths)
     allow(view).to receive(:current_user).and_return(nil)
 
     view.controller.default_url_options = { locale: 'en' }
@@ -48,13 +49,13 @@ RSpec.describe 'learning_paths/index', type: :view do
   end
 
   it 'renders the empty partial when no paths' do
-    assign(:learning_paths, [])
+    assign(:learning_paths, Kaminari.paginate_array([]).page(1))
     render
     expect(rendered).to render_template(partial: '_empty_page_template')
   end
 
   it 'displays empty state message' do
-    assign(:learning_paths, [])
+    assign(:learning_paths, Kaminari.paginate_array([]).page(1))
     render
     expect(rendered).to have_css('h3', text: I18n.t('learning_paths.empty.title'))
   end
@@ -63,7 +64,7 @@ RSpec.describe 'learning_paths/index', type: :view do
     let(:filtered_paths) { [ learning_paths.first ] }
 
     before do
-      assign(:learning_paths, filtered_paths)
+      assign(:learning_paths, Kaminari.paginate_array(filtered_paths).page(1))
       render
     end
 

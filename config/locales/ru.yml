@@ -13,7 +13,7 @@ ru:
   common:
     create: "Создать учебный трек"
     save_changes: "Сохранить изменения"
-    save_lesson: "Сохранить урок"
+    save_course_content: "Сохранить урок"
     cancel: "Отмена"
     edit_content: "Управление контентом"
     watch_video: "Смотреть видео"
@@ -22,7 +22,7 @@ ru:
     form_error: "Пожалуйста, проверьте форму на наличие ошибок."
   errors:
     form_check: "Пожалуйста, проверьте форму на наличие ошибок."
-  lessons:
+  course_content:
     editor: "Редактор урока"
     title: "Название урока"
     position: "Позиция"

@@ -73,6 +73,10 @@ gem "sidekiq"
 # [https://github.com/mongodb/mongoid]
 gem "mongoid"
 
+# [https://github.com/kaminari/kaminari]
+gem "kaminari"
+gem "bootstrap5-kaminari-views"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"

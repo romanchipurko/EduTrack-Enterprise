@@ -56,8 +56,7 @@ RSpec.describe CourseContent, type: :model do
     end
 
     it 'has an index on learning_path_id' do
-      has_index = index_specifications.any? { |spec| spec.key == { learning_path_id: 1 } }
-      expect(has_index).to be true
+      expect(described_class.index_specifications.any? { |i| i.key == { learning_path_id: 1, position: 1 } }).to be true
     end
 
     it 'has a compound index on learning_path_id and position' do
@@ -94,6 +93,27 @@ RSpec.describe CourseContent, type: :model do
       course = build(:course_content, position: -1)
       course.valid?
       expect(course.errors[:position]).to include('must be greater than or equal to 0')
+    end
+  end
+
+  describe '#learning_path' do
+    let(:course_content) { build(:course_content, learning_path_id: 'test-uuid-123') }
+    let(:mock_learning_path) { instance_double(LearningPath, id: 'test-uuid-123') }
+
+    it 'returns the associated LearningPath record from PostgreSQL' do
+      allow(LearningPath).to receive(:find_by).with(id: 'test-uuid-123').and_return(mock_learning_path)
+      expect(course_content.learning_path).to eq(mock_learning_path)
+    end
+
+    it 'returns nil if learning_path_id is blank' do
+      course_content.learning_path_id = nil
+
+      expect(course_content.learning_path).to be_nil
+    end
+
+    it 'returns nil if the LearningPath record no longer exists in PostgreSQL' do
+      allow(LearningPath).to receive(:find_by).with(id: 'test-uuid-123').and_return(nil)
+      expect(course_content.learning_path).to be_nil
     end
   end
 end

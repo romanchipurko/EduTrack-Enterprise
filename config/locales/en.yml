@@ -13,7 +13,7 @@ en:
   common:
     create: "Create Learning Path"
     save_changes: "Save Details"
-    save_lesson: "Save Lesson"
+    save_course_content: "Save Course Content"
     cancel: "Cancel"
     edit_content: "Edit Content"
     watch_video: "Watch video"
@@ -22,15 +22,15 @@ en:
     form_error: "Please check the form for errors."
   errors:
     form_check: "Please check the form for errors."
-  lessons:
-    editor: "Lesson Editor"
-    title: "Lesson Title"
+  course_content:
+    editor: "Course Content Editor"
+    title: "Course Content Title"
     position: "Position"
     content: "Content Elements"
     add_element: "Add Element"
-    edit: "Edit Lesson"
-    updated: "Lesson updated successfully!"
-    deleted: "Lesson deleted."
+    edit: "Edit Course Content"
+    updated: "Course Content updated successfully!"
+    deleted: "Course Content deleted."
   elements:
     types:
       video: "Video"

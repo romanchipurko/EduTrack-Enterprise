@@ -9,8 +9,13 @@ class CourseContent
 
   accepts_nested_attributes_for :elements, allow_destroy: true
 
-  index({ learning_path_id: 1 })
   index({ learning_path_id: 1, position: 1 }, unique: true)
+
+  def learning_path
+    return if learning_path_id.blank?
+
+    LearningPath.find_by(id: learning_path_id)
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title position]
