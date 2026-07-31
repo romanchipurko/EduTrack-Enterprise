@@ -15,6 +15,20 @@ class User < ApplicationRecord
 
   validates :role, presence: true
 
+  def self.dashboard_counts
+    Rails.cache.fetch("dashboard/user_counts", expires_in: 5.minutes) do
+      roles_counts = User.group(:role).count
+      roles_counts.default = 0
+
+      {
+        total: roles_counts.values.sum,
+        students: roles_counts["student"],
+        instructors: roles_counts["instructor"],
+        admins: roles_counts["admin"]
+      }
+    end
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     %w[email created_at role]
   end

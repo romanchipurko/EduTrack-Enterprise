@@ -99,4 +99,23 @@ RSpec.describe User, type: :model do
       it { expect(password_errors).to be_present }
     end
   end
+
+  describe ".dashboard_counts" do
+    before do
+      Rails.cache.clear
+      create_list(:user, 2, role: :student)
+      create(:user, role: :instructor)
+      create(:user, role: :admin)
+    end
+
+    it "returns the correct counts grouped by role" do
+      expect(described_class.dashboard_counts).to eq({ total: 4, students: 2, instructors: 1, admins: 1 })
+    end
+
+    it "caches the result using Rails.cache" do
+      allow(Rails.cache).to receive(:fetch).and_call_original
+      described_class.dashboard_counts
+      expect(Rails.cache).to have_received(:fetch).with("dashboard/user_counts", expires_in: 5.minutes)
+    end
+  end
 end

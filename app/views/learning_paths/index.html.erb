@@ -1,4 +1,4 @@
-<div class="container learning-paths-page pb-5">
+<div class="container learning-paths-page pb-5 d-flex flex-column" style="min-height: 80vh;">
   <div class="row align-items-center mb-4">
     <div class="col-md-8">
       <h1 class="display-5 fw-bold text-dark">
@@ -16,12 +16,18 @@
   </div>
 
   <% if @learning_paths.present? %>
-    <div class="row g-4">
+    <div class="row g-4 flex-grow-1 align-content-start">
       <% @learning_paths.each do |path| %>
         <%= render "learning_path_form", path: path %>
       <% end %>
     </div>
   <% else %>
-    <%= render "empty_page_template" %>
+    <div class="flex-grow-1 d-flex flex-column justify-content-center">
+      <%= render "empty_page_template" %>
+    </div>
   <% end %>
+
+  <div class="d-flex justify-content-center mt-auto pt-5">
+    <%= paginate @learning_paths, theme: 'bootstrap-5' %>
+  </div>
 </div>

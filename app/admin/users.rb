@@ -12,7 +12,7 @@ ActiveAdmin.register User do
   filter :created_at
   filter :role, as: :select, collection: User.roles.keys
 
-  index title: I18n.t("active_admin.users.title") do
+  index title: proc { I18n.t("active_admin.users.title") } do
     selectable_column
     id_column
     column :email
