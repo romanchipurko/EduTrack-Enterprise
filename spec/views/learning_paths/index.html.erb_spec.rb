@@ -6,6 +6,7 @@ RSpec.describe 'learning_paths/index', type: :view do
 
   before do
     assign(:learning_paths, paginated_paths)
+    assign(:user_enrollments, {})
     allow(view).to receive(:current_user).and_return(nil)
 
     view.controller.default_url_options = { locale: 'en' }
@@ -70,6 +71,20 @@ RSpec.describe 'learning_paths/index', type: :view do
 
     it 'includes filtered path content' do
       expect(rendered).to include(filtered_paths.first.title)
+    end
+  end
+
+  context 'when user has enrollments' do
+    let(:enrolled_path) { learning_paths.first }
+    let(:enrollment) { build_stubbed(:enrollment, progress_percentage: 45) }
+
+    before do
+      assign(:user_enrollments, { enrolled_path.id => enrollment })
+      render
+    end
+
+    it 'displays the progress badge for enrolled paths' do
+      expect(rendered).to have_css('.badge', text: '45%')
     end
   end
 end

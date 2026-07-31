@@ -1,10 +1,19 @@
+<% enrollment = @user_enrollments[path.id] %>
+
 <div class="col-md-6 col-lg-4">
   <div class="card learning-path-card h-100">
     <div class="card-body p-4 d-flex flex-column">
-      <h5 class="card-title fw-bold text-dark">
-        <%= path.title %>
-      </h5>
-      <p class="card-text text-muted flex-grow-1">
+      <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+        <h5 class="card-title fw-bold text-dark mb-0">
+          <%= path.title %>
+        </h5>
+        <% if enrollment %>
+          <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 fw-bold border border-success border-opacity-25 flex-shrink-0">
+            <%= enrollment.progress_percentage %>%
+          </span>
+        <% end %>
+      </div>
+      <p class="card-text text-muted flex-grow-1 mt-2">
         <%= truncate(path.description, length: 120) if path.description.present? %>
       </p>
       <div class="mt-3">

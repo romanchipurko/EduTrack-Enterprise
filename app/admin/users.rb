@@ -19,6 +19,7 @@ ActiveAdmin.register User do
     column :role do |user|
       user.role.humanize
     end
+    column I18n.t("active_admin.users.enrollments_count"), :enrollments_count
     column :created_at
     actions
   end
@@ -27,9 +28,21 @@ ActiveAdmin.register User do
     attributes_table do
       row :id
       row :email
-      row :role
+      row :role do |user|
+        user.role.humanize
+      end
       row :created_at
       row :updated_at
+    end
+
+    panel proc { I18n.t("active_admin.users.enrollments_panel") } do
+      table_for user.enrollments.includes(:learning_path) do
+        column :learning_path
+        column :progress_percentage do |enrollment|
+          "#{enrollment.progress_percentage}%"
+        end
+        column :created_at
+      end
     end
   end
 

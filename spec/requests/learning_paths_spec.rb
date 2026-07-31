@@ -11,8 +11,9 @@ RSpec.describe 'LearningPaths', type: :request do
   end
 
   describe 'GET /learning_paths/:id' do
-    context 'when course contents exist' do
+    context 'when user is enrolled and course contents exist' do
       before do
+        create(:enrollment, user: user, learning_path: learning_path)
         CourseContent.create!(
           title: 'Intro to Mongo',
           position: 1,
@@ -34,8 +35,9 @@ RSpec.describe 'LearningPaths', type: :request do
       end
     end
 
-    context 'when no course contents exist' do
+    context 'when user is enrolled but no course contents exist' do
       before do
+        create(:enrollment, user: user, learning_path: learning_path)
         get learning_path_path(learning_path, locale: 'en')
       end
 
@@ -45,6 +47,20 @@ RSpec.describe 'LearningPaths', type: :request do
 
       it 'renders the empty state message' do
         expect(response.body).to include(I18n.t('learning_paths.show.no_lessons'))
+      end
+    end
+
+    context 'when user is not enrolled' do
+      before do
+        get learning_path_path(learning_path, locale: 'en')
+      end
+
+      it 'returns a successful response' do
+        expect(response).to be_successful
+      end
+
+      it 'renders the curriculum locked message' do
+        expect(response.body).to include(I18n.t('learning_paths.show.curriculum_locked_title'))
       end
     end
   end

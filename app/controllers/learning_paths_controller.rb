@@ -4,13 +4,15 @@ class LearningPathsController < ApplicationController
   before_action :authorize_learning_path, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    authorize LearningPath
     scope = params[:search].present? ? LearningPath.search_by_content(params[:search]) : LearningPath.all
-    @learning_paths = policy_scope(scope).page(params[:page]).per(9)
+    @learning_paths = scope.page(params[:page]).per(9)
+    @user_enrollments = current_user.enrollments.index_by(&:learning_path_id)
   end
 
   def show
-    @course_contents = @learning_path.course_contents
+    @learning_path = LearningPath.find(params[:id])
+    @course_contents = CourseContent.includes(:quizzes).where(learning_path_id: @learning_path.id.to_s).order_by(position: :asc)
+    @enrollment = current_user.enrollments.find_by(learning_path: @learning_path)
   end
 
   def new

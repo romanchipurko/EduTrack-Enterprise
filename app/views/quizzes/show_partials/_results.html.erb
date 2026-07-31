@@ -11,7 +11,12 @@
     <p class="mb-0"><%= t('quizzes.results.has_errors') %></p>
   <% end %>
   
-  <div class="mt-4">
-    <%= link_to t('quizzes.results.retry'), course_content_quiz_path(@course_content, @quiz), class: "btn btn-outline-dark rounded-pill px-4" %>
+  <div class="mt-4 d-flex justify-content-center gap-3">
+    <%= link_to t('quizzes.results.retry'), course_content_quiz_path(@course_content, @quiz), class: "btn btn-outline-dark rounded-pill px-4 fw-semibold" %>
+    
+    <% if @score == @total %>
+      <%= button_to "Submit & Return to Course", learning_path_enrollments_path(learning_path_id: @course_content.learning_path_id, item_id: @quiz.id.to_s), 
+                                                 method: :post, class: "btn btn-success rounded-pill px-4 fw-bold shadow-sm" %>
+    <% end %>
   </div>
 </div>
