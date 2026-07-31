@@ -33,6 +33,12 @@ class LearningPath < ApplicationRecord
     quizzes_count + contents.size
   end
 
+  def total_completable_items_count
+    contents = course_contents
+    quizzes_count = Quiz.where(:course_content_id.in => contents.pluck(:id)).size
+    quizzes_count + contents.size
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     %w[title]
   end
