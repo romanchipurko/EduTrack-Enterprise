@@ -27,6 +27,7 @@ en:
   errors:
     form_check: "Please check the form for errors."
   course_content:
+    created: "Course Content successfully created"
     editor: "Course Content Editor"
     title: "Course Content Title"
     position: "Position"
@@ -79,6 +80,7 @@ en:
     ru: "Русский"
   learning_paths:
     created_notice: "Course created successfully!"
+    updated: "Course updated successfully!"
     curriculum: "Curriculum Builder"
     edit_details: "Course Details"
     add_lesson: "Add Lesson"
@@ -162,6 +164,8 @@ en:
       title: "Edit Quiz"
     new:
       title: "Create New Quiz"
+    errors:
+      invalid_range: "must be between 1 and %{count}"
   active_admin:
     dashboard:
       title: "Dashboard"

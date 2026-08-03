@@ -11,7 +11,8 @@ class QuizAttempt < ApplicationRecord
   end
 
   def percentage
-    return 0 if total.zero?
+    return 0 if total.nil? || total.zero?
+
     (score.to_f / total*100).round
   end
 end

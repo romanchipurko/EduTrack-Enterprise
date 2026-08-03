@@ -13,6 +13,11 @@ class CourseContent
 
   index({ learning_path_id: 1, position: 1 }, unique: true)
 
+  before_validation :set_default_position, if: -> { position.nil? }
+
+  validates :learning_path_id, :title, presence: true
+  validates :position, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
   def learning_path
     return if learning_path_id.blank?
 
@@ -27,8 +32,11 @@ class CourseContent
     []
   end
 
-  validates :learning_path_id, :title, presence: true
-  validates :position, presence: true,
-                       numericality: { only_integer: true, greater_than_or_equal_to: 0 },
-                       uniqueness: { scope: :learning_path_id }
+  private
+
+  def set_default_position
+    return if position.present?
+
+    self.position = self.class.where(learning_path_id: learning_path_id).count + 1
+  end
 end

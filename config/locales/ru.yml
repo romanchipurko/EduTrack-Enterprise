@@ -27,6 +27,7 @@ ru:
   errors:
     form_check: "Пожалуйста, проверьте форму на наличие ошибок."
   course_content:
+    created: "Урок успешно создан"
     editor: "Редактор урока"
     title: "Название урока"
     position: "Позиция"
@@ -79,6 +80,7 @@ ru:
     ru: "Русский"
   learning_paths:
     created_notice: "Курс успешно создан!"
+    updated: "Курс успешно обновлен!"
     curriculum: "Конструктор курса"
     edit_details: "Детали курса"
     add_lesson: "Добавить урок"
@@ -166,6 +168,8 @@ ru:
       title: "Редактировать тест"
     new:
       title: "Создать новый тест"
+    errors:
+      invalid_range: "должно быть между 1 и %{count}"
   active_admin:
     dashboard:
       title: "Панель управления"

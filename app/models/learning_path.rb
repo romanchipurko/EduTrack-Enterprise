@@ -7,7 +7,7 @@ class LearningPath < ApplicationRecord
   validates :description, presence: true, length: { maximum: 500 }
 
   def course_contents
-    CourseContent.where(learning_path_id: self.id.to_s).order_by(position: :asc)
+    CourseContent.includes(:quizzes).where(learning_path_id: self.id).order_by(position: :asc)
   end
 
   def self.ransackable_attributes(auth_object = nil)
