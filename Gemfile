@@ -77,6 +77,9 @@ gem "mongoid"
 gem "kaminari"
 gem "bootstrap5-kaminari-views"
 
+# [https://rubygems.org/gems/redis/versions/5.4.1]
+gem "redis"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
