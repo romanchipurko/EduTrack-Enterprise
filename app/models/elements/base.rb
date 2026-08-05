@@ -11,6 +11,7 @@ module Elements
 
     embedded_in :course_content
 
+    field :_type, type: String
     field :position, type: Integer
 
     validates :position, presence: true,

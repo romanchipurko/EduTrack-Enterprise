@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'learning_paths/index', type: :view do
   let(:learning_paths) { build_stubbed_list(:learning_path, 3) }
   let(:paginated_paths) { Kaminari.paginate_array(learning_paths).page(1) }
+  let(:user) { build_stubbed(:user) }
 
   before do
     assign(:learning_paths, paginated_paths)
     assign(:user_enrollments, {})
-    allow(view).to receive(:current_user).and_return(nil)
-
+    allow(view).to receive(:current_user).and_return(user)
     view.controller.default_url_options = { locale: 'en' }
     render
   end
