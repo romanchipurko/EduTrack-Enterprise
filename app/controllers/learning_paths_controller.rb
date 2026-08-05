@@ -1,17 +1,17 @@
 class LearningPathsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_learning_path, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_learning_path, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_learning_path, only: %i[show edit update destroy]
+  before_action :authorize_learning_path, only: %i[show edit update destroy]
 
   def index
-    scope = params[:search].present? ? LearningPath.search_by_content(params[:search]) : LearningPath.all
+    base_scope = policy_scope(LearningPath)
+    scope = params[:search].present? ? base_scope.search_by_content(params[:search]) : base_scope
     @learning_paths = scope.page(params[:page]).per(9)
     @user_enrollments = current_user.enrollments.index_by(&:learning_path_id)
   end
 
   def show
-    @learning_path = LearningPath.find(params[:id])
-    @course_contents = CourseContent.includes(:quizzes).where(learning_path_id: @learning_path.id.to_s).order_by(position: :asc)
+    @course_contents = @learning_path.course_contents.includes(:quizzes).order_by(position: :asc)
     @enrollment = current_user.enrollments.find_by(learning_path: @learning_path)
   end
 
@@ -25,7 +25,7 @@ class LearningPathsController < ApplicationController
     @form = CourseBuilderForm.new(course_builder_params)
 
     if @form.save
-      redirect_to learning_path_path(@form.learning_path), notice: t("learning_paths.created_notice")
+      redirect_to learning_path_path(@form.learning_path), notice: t("learning_paths.created")
     else
       flash.now[:alert] = t("errors.form_check")
       render :new, status: :unprocessable_entity
@@ -38,7 +38,7 @@ class LearningPathsController < ApplicationController
 
   def update
     if @learning_path.update(learning_path_params)
-      redirect_to edit_learning_path_path(@learning_path), notice: t("learning_path.updated")
+      redirect_to edit_learning_path_path(@learning_path), notice: t("learning_paths.updated")
     else
       flash.now[:alert] = t("errors.form_check")
       render :edit, status: :unprocessable_entity
@@ -47,7 +47,7 @@ class LearningPathsController < ApplicationController
 
   def destroy
     @learning_path.destroy
-    redirect_to learning_paths_path, notice: t("learning_path.deleted")
+    redirect_to learning_paths_path, notice: t("learning_paths.deleted")
   end
 
   private
