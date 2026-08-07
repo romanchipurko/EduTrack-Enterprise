@@ -32,8 +32,14 @@
           <% end %>
         </div>
         <hr class="my-4">
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 flex-wrap">
           <%= link_to t('learning_paths.show.back_to_list'), learning_paths_path, class: "btn btn-outline-secondary rounded-pill px-4" %>
+          <% if @enrollment&.certificate&.attached? %>
+            <%= link_to rails_blob_path(@enrollment.certificate, disposition: "attachment"), class: "btn btn-success rounded-pill px-4 fw-bold" do %>
+              <i class="bi bi-award me-1"></i> <%= t('learning_paths.show.download_certificate', default: 'Download Certificate') %>
+            <% end %>
+          <% end %>
+
           <% if policy(@learning_path).update? %>
             <%= link_to t('learning_paths.show.edit_curriculum'), edit_learning_path_path(@learning_path), class: 'btn btn-outline-warning rounded-pill px-4' %>
           <% end %>

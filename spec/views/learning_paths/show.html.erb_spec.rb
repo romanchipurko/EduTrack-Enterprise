@@ -97,4 +97,23 @@ RSpec.describe 'learning_paths/show', type: :view do
       expect(rendered).to have_button(I18n.t('learning_paths.show.submit_and_go_next'))
     end
   end
+
+  context 'when user is enrolled, progress is 100% and certificate is attached' do
+    # Убрали let(:certificate_blob_path), чтобы не раздражать Rubocop количеством переменных
+    before do
+      assign(:enrollment, enrollment)
+      allow(learning_path).to receive(:course_contents).and_return([])
+
+      # Исправлено на instance_double
+      cert_mock = instance_double(ActiveStorage::Attached::One, attached?: true)
+      allow(enrollment).to receive(:certificate).and_return(cert_mock)
+      allow(view).to receive(:rails_blob_path).with(cert_mock, disposition: "attachment").and_return('/path/to/cert.pdf')
+
+      render
+    end
+
+    it 'displays the download certificate button' do
+      expect(rendered).to have_link(I18n.t('learning_paths.show.download_certificate', default: 'Download Certificate'), href: '/path/to/cert.pdf')
+    end
+  end
 end

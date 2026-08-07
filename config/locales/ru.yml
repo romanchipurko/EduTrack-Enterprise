@@ -114,6 +114,7 @@ ru:
       subscribe: "Подписаться на курс"
       curriculum_locked_title: "Программа скрыта"
       curriculum_locked_text: "Подпишитесь на курс, чтобы получить доступ к материалам."
+      download_certificate: "Скачать сертификат (.pdf)"
     card:
       details: "Подробнее"
     empty:

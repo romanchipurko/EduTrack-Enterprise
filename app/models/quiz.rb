@@ -11,14 +11,14 @@ class Quiz
 
   validates :title, presence: true
 
-  after_save :recalculate_course_enrollments
-  after_destroy :recalculate_course_enrollments
+  after_save :trigger_progress_recalculation
+  after_destroy :trigger_progress_recalculation
 
   private
 
-  def recalculate_course_enrollments
+  def trigger_progress_recalculation
     return if (path_id = course_content&.learning_path_id).blank?
 
-    Enrollment.where(learning_path_id: path_id).find_each { |enrollment| enrollment.recalculate_progress! }
+    RecalculateProgressJob.perform_later(learning_path_id: path_id)
   end
 end
