@@ -12,6 +12,7 @@ class Enrollment < ApplicationRecord
     completed_item_ids.include?(item_id.to_s)
   end
 
+<<<<<<< HEAD
   def complete_item!(item_id:, locale:)
     return if completed_item_ids.include?(item_id.to_s)
 
