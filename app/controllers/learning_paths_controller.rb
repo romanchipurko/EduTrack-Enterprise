@@ -1,13 +1,16 @@
 class LearningPathsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_learning_path, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_learning_path, only: [ :show, :edit, :update, :destroy ]
 
   def index
+    authorize LearningPath
     scope = params[:search].present? ? LearningPath.search_by_content(params[:search]) : LearningPath.all
-    @learning_paths = scope.page(params[:page]).per(9)
+    @learning_paths = policy_scope(scope).page(params[:page]).per(9)
   end
 
   def show
-    @learning_path = LearningPath.find(params[:id])
+    @course_contents = @learning_path.course_contents
   end
 
   def new
@@ -28,14 +31,38 @@ class LearningPathsController < ApplicationController
   end
 
   def edit
-    @learning_path = LearningPath.find(params[:id])
-    authorize @learning_path
-    @course_contents = CourseContent.where(learning_path_id: @learning_path.id).order_by(position: :asc)
+    @course_contents = @learning_path.course_contents
+  end
+
+  def update
+    if @learning_path.update(learning_path_params)
+      redirect_to edit_learning_path_path(@learning_path), notice: t("learning_path.updated")
+    else
+      flash.now[:alert] = t("errors.form_check")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @learning_path.destroy
+    redirect_to learning_paths_path, notice: t("learning_path.deleted")
   end
 
   private
 
   def course_builder_params
-    params.require(:course_builder_form).permit(:title, :description, :lesson_title)
+    params.require(:course_builder_form).permit(:title, :description, :lesson_title, :quiz_title)
+  end
+
+  def learning_path_params
+    params.require(:learning_path).permit(:title, :description)
+  end
+
+  def set_learning_path
+    @learning_path = LearningPath.find(params[:id])
+  end
+
+  def authorize_learning_path
+    authorize @learning_path
   end
 end

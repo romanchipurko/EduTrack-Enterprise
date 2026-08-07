@@ -14,15 +14,20 @@ en:
     create: "Create Learning Path"
     save_changes: "Save Details"
     save_course_content: "Save Course Content"
+    save: "Save"
     cancel: "Cancel"
     edit_content: "Edit Content"
     watch_video: "Watch video"
     confirm_delete: "Are you sure?"
+    back: "Back"
+    next: "Next"
+    edit: "Edit"
   flash:
     form_error: "Please check the form for errors."
   errors:
     form_check: "Please check the form for errors."
   course_content:
+    created: "Course Content successfully created"
     editor: "Course Content Editor"
     title: "Course Content Title"
     position: "Position"
@@ -75,6 +80,7 @@ en:
     ru: "Русский"
   learning_paths:
     created_notice: "Course created successfully!"
+    updated: "Course updated successfully!"
     curriculum: "Curriculum Builder"
     edit_details: "Course Details"
     add_lesson: "Add Lesson"
@@ -118,6 +124,48 @@ en:
       quiz_title: "First Quiz Title"
       quiz_title_placeholder: "e.g., ActiveJob Basics Knowledge Check"
       quiz_hint: "You can leave this blank and add quizzes later."
+  quizzes:
+    created: "Quiz successfully created"
+    updated: "Quiz successfully updated"
+    deleted: "Quiz deleted"
+    title: "Lesson Quizzes"
+    questions_count:
+      one: "%{count} question"
+      other: "%{count} questions"
+    delete_confirm: "Delete this quiz?"
+    add_another: "Add another quiz"
+    empty_state: "There are no quizzes for this lesson yet."
+    create_new: "Create quiz"
+    knowledge_check: "Knowledge Check"
+    show:
+      breadcrumb_course: "Course"
+    results:
+      your_score: "Your score: %{score} out of %{total} (%{percentage}%%)"
+      perfect_score: "Great job! You answered all questions correctly."
+      has_errors: "There are some mistakes. We've hidden the correct answers so you can try again!"
+      retry: "Retry quiz"
+    summary:
+      title: "Your Answers"
+    wizard:
+      submit: "Submit Answers"
+      alert_choose: "Please select an answer to continue."
+      alert_submit: "Please select an answer before submitting."
+    form:
+      title_label: "Quiz Title"
+      questions_title: "Questions"
+      add_question: "Add Question"
+      option_placeholder: "Option"
+      min_options_alert: "A question must have at least 2 options."
+      question_label: "Question"
+      question_text_label: "Question Text"
+      options_hint: "Answer Options (mark the correct one)"
+      add_option: "Add Option"
+    edit:
+      title: "Edit Quiz"
+    new:
+      title: "Create New Quiz"
+    errors:
+      invalid_range: "must be between 1 and %{count}"
   active_admin:
     dashboard:
       title: "Dashboard"

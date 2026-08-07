@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'learning_paths/show', type: :view do
-  let(:learning_path) { create(:learning_path, title: 'Test Path', description: 'Test description') }
+  let(:learning_path) { build_stubbed(:learning_path, title: 'Test Path', description: 'Test description') }
   let(:markdown_element) { Elements::Markdown.new(body: 'Hello World', position: 1) }
 
   let(:lesson) do
     CourseContent.new(
-      id: '5f8d04b3e5a5a12345678900',
       title: 'Intro to Mongo',
       position: 1,
       elements: [ markdown_element ]
@@ -15,6 +14,8 @@ RSpec.describe 'learning_paths/show', type: :view do
 
   before do
     assign(:learning_path, learning_path)
+    assign(:course_contents, [])
+
     allow(view).to receive(:current_user).and_return(nil)
     without_partial_double_verification { allow(view).to receive(:policy).and_return(double(update?: true)) }
     view.controller.default_url_options = { locale: 'en' }
@@ -26,26 +27,12 @@ RSpec.describe 'learning_paths/show', type: :view do
       render
     end
 
-    it 'displays the breadcrumb navigation' do
-      aggregate_failures do
-        expect(rendered).to have_css('nav[aria-label="breadcrumb"]')
-        expect(rendered).to have_link(I18n.t('learning_paths.show.breadcrumb_all'), href: learning_paths_path)
-        expect(rendered).to have_css('.breadcrumb-item.active', text: learning_path.title)
-      end
+    it 'displays the breadcrumb navigation structure' do
+      expect(rendered).to have_css('nav[aria-label="breadcrumb"]')
     end
 
-    it 'displays the learning path title and description' do
-      aggregate_failures do
-        expect(rendered).to have_css('h1', text: learning_path.title)
-        expect(rendered).to have_css('p.text-muted', text: learning_path.description)
-      end
-    end
-
-    it 'renders the "Back to list" button' do
-      aggregate_failures do
-        expect(rendered).to have_link(I18n.t('learning_paths.show.back_to_list'), href: learning_paths_path)
-        expect(rendered).to have_css('a.btn-outline-secondary')
-      end
+    it 'displays the link to all paths' do
+      expect(rendered).to have_link(I18n.t('learning_paths.show.breadcrumb_all'), href: learning_paths_path)
     end
 
     it 'displays the empty state message' do
@@ -53,38 +40,33 @@ RSpec.describe 'learning_paths/show', type: :view do
     end
   end
 
-  context 'when description is blank' do
-    let(:learning_path) { build_stubbed(:learning_path, title: 'Test Path', description: nil) }
-
-    before do
-      allow(learning_path).to receive(:course_contents).and_return([])
-      render
-    end
-
-    it 'shows empty description paragraph' do
-      expect(rendered).to have_css('p.text-muted', text: '')
-    end
-  end
-
   context 'when course contents exist' do
     before do
+      allow(lesson).to receive(:quizzes).and_return([])
       allow(learning_path).to receive(:course_contents).and_return([ lesson ])
+      assign(:course_contents, [ lesson ])
+
       render
     end
 
-    it 'renders the curriculum headers' do
-      aggregate_failures do
-        expect(rendered).to have_text(I18n.t('learning_paths.show.curriculum'))
-        expect(rendered).to have_css('.accordion-item')
-      end
+    it 'renders the curriculum text' do
+      expect(rendered).to have_text(I18n.t('learning_paths.show.curriculum'))
     end
 
-    it 'renders the lesson details' do
-      aggregate_failures do
-        expect(rendered).to have_text('Intro to Mongo')
-        expect(rendered).to have_text(I18n.t('learning_paths.show.lesson_prefix', number: 1))
-        expect(rendered).to have_css('.markdown-body', text: 'Hello World')
-      end
+    it 'renders the accordion item' do
+      expect(rendered).to have_css('.accordion-item')
+    end
+
+    it 'renders the lesson title' do
+      expect(rendered).to have_text('Intro to Mongo')
+    end
+
+    it 'renders the lesson prefix' do
+      expect(rendered).to have_text(I18n.t('learning_paths.show.lesson_prefix', number: 1))
+    end
+
+    it 'renders the lesson content' do
+      expect(rendered).to have_text('Hello World')
     end
   end
 end

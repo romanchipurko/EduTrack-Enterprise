@@ -1,0 +1,44 @@
+<h4 class="fw-bold mt-5 mb-4 border-bottom pb-2"><%= t('quizzes.summary.title') %></h4>
+
+<% @quiz.questions.each_with_index do |question, q_index| %>
+  <div class="card mb-4 border-0 bg-light rounded-4">
+    <div class="card-body p-4">
+      <h5 class="fw-bold mb-4"><%= q_index + 1 %>. <%= question.text %></h5>
+      
+      <div class="d-flex flex-column gap-2">
+        <% question.options.each_with_index do |option_text, opt_index| %>
+          <%
+            user_selected = @user_answer[question.id.to_s] == opt_index.to_s
+            is_correct_option = (question.correct_answer == opt_index)
+            
+            if user_selected
+              if is_correct_option
+                bg_class = "bg-success bg-opacity-10 border border-success text-success"
+                icon = '<i class="bi bi-check-circle-fill text-success fs-5"></i>'
+              else
+                bg_class = "bg-danger bg-opacity-10 border border-danger text-danger"
+                icon = '<i class="bi bi-x-circle-fill text-danger fs-5"></i>'
+              end
+            else
+              bg_class = "bg-white text-muted border border-light"
+              icon = ''
+            end
+          %>
+          
+          <div class="d-flex align-items-center rounded-3 px-3 py-3 <%= bg_class %>">
+            <div class="flex-grow-1">
+              <span class="<%= 'fw-bold' if user_selected %>">
+                <%= option_text %>
+              </span>
+            </div>
+            
+            <div>
+              <%= raw icon %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+<% end %>

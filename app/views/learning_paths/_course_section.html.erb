@@ -1,6 +1,6 @@
 <div class="accordion shadow-sm rounded-4" id="courseContentAccordion">
-  <% @learning_path.course_contents.sort_by(&:position).each_with_index do |lesson, index| %>
-    <div class="accordion-item border-0 <%= 'border-bottom' unless index == @learning_path.course_contents.size - 1 %>">
+  <% @course_contents.sort_by(&:position).each_with_index do |lesson, index| %>
+    <div class="accordion-item border-0 <%= 'border-bottom' unless index == @course_contents.size - 1 %>">
       <h2 class="accordion-header" id="heading-<%= lesson.id %>">
         <button class="accordion-button <%= 'collapsed' unless index == 0 %> bg-white fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= lesson.id %>" aria-expanded="<%= index == 0 ? 'true' : 'false' %>" aria-controls="collapse-<%= lesson.id %>">
           <span class="badge bg-primary me-3 rounded-pill"><%= t('learning_paths.show.lesson_prefix', number: lesson.position) %></span>
@@ -12,6 +12,22 @@
         <div class="accordion-body bg-light">
           <% lesson.elements.sort_by(&:position).each do |element| %>
             <%= render "course_content", element: element %>
+          <% end %>
+         <% if lesson.quizzes.any? %>
+            <div class="mt-4 pt-3 border-top border-2 border-primary border-opacity-10">
+              <h6 class="fw-bold text-muted text-uppercase small tracking-wide mb-3">
+                <%= t('quizzes.knowledge_check') %>
+              </h6>
+              
+              <div class="d-flex flex-wrap gap-2">
+                <% lesson.quizzes.each do |quiz| %>
+                  <%= link_to course_content_quiz_path(lesson, quiz), class: "btn btn-outline-primary rounded-pill d-inline-flex align-items-center shadow-sm" do %>
+                    <i class="bi bi-patch-question-fill me-2"></i> 
+                    <%= quiz.title %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>

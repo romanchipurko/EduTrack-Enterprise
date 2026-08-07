@@ -4,7 +4,7 @@ class LearningPathPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || user.instructor?
+    true
   end
 
   def create?
