@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/environment'
+require 'bunny'
+require 'json'
+
+puts "Starting consumer"
+
+connection = Bunny.new(ENV.fetch("RABBITMQ_URL"))
+connection.start
+
+channel = connection.create_channel
+exchange = channel.topic("edutrack.events", durable: true)
+
+queue = channel.queue("analytics_queue", durable: true)
+queue.bind(exchange, routing_key: "user.*")
+
+puts "[*] Waiting for events"
+
+begin
+  queue.subscribe(block: true, manual_ack: true) do |delivery_info, _properties, body|
+    payload = JSON.parse(body)
+    puts "[X] Received event: #{delivery_info.routing_key}: #{payload['lesson_id']}"
+
+    AnalyticsEvent.create!(
+      event_type: delivery_info.routing_key,
+      user_id: payload['user_id'],
+      learning_path_id: payload['learning_path_id'],
+      lesson_id: payload['lesson_id'],
+      payload: payload
+    )
+
+    channel.ack(delivery_info.delivery_tag)
+  rescue StandardError => e
+    puts "[!] Error: #{e.message}"
+    channel.nack(delivery_info.delivery_tag, false, true)
+  end
+rescue Interrupt => _
+  connection.close
+  exit(0)
+end

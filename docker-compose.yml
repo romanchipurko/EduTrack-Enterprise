@@ -9,6 +9,11 @@ services:
       - '5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:8.6
@@ -53,6 +58,22 @@ services:
       - db
       - redis
       - mongo
+
+  analytics_consumer:
+    build: .
+    command: sh -c "chmod +x bin/analytics_consumer && bundle exec ruby bin/analytics_consumer"
+    volumes:
+      - .:/edu-track
+    env_file:
+      - .env
+    environment:
+      - RAILS_ENV=development
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_started
+      db:
+        condition: service_healthy
   
   web:
     environment:

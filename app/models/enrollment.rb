@@ -22,6 +22,16 @@ class Enrollment < ApplicationRecord
     if progress_percentage == 100 && !certificate.attached?
       CertificateGenerationJob.perform_later(user: user, learning_path: learning_path, locale: locale)
     end
+
+    EventPublisher.publish(
+      "user.lesson_completed",
+      {
+        user_id: user.id,
+        learning_path_id: learning_path_id,
+        lesson_id: item_str,
+        timestamp: Time.current.to_i
+      }
+    )
   end
 
   def recalculate_progress!

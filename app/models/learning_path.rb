@@ -3,6 +3,7 @@ class LearningPath < ApplicationRecord
 
   has_many :enrollments, dependent: :destroy
   has_many :users, through: :enrollments
+  has_many :analytics_events, dependent: :destroy
 
   pg_search_scope :search_by_content, against: [ :title, :description ], using: { tsearch: { prefix: true } }
 

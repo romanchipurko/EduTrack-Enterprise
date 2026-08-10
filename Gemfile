@@ -83,6 +83,12 @@ gem "redis"
 # [https://github.com/prawnpdf/prawn]
 gem "prawn"
 
+# [https://github.com/ruby-amqp/bunny]
+gem "bunny", ">= 3.1.0"
+
+# [https://github.com/ankane/groupdate]
+gem "groupdate"
+
 group :development, :test do
   # [https://rubygems.org/gems/factory_bot_rails]
   gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"

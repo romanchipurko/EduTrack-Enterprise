@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_07_121132) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_10_115355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -41,6 +41,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_07_121132) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "analytics_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "event_type", null: false
+    t.uuid "user_id", null: false
+    t.uuid "learning_path_id", null: false
+    t.string "lesson_id", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_analytics_events_on_created_at"
+    t.index ["event_type"], name: "index_analytics_events_on_event_type"
+    t.index ["learning_path_id"], name: "index_analytics_events_on_learning_path_id"
+    t.index ["user_id"], name: "index_analytics_events_on_user_id"
   end
 
   create_table "enrollments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

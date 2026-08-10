@@ -1,0 +1,42 @@
+<div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+  <div class="card-body p-0">
+    <% if recent_events.any? %>
+      <div class="table-responsive">
+        <table class="table table-striped m-0 align-middle">
+          <thead class="table-dark">
+          <tr>
+            <th class="py-3 ps-4"><%= t('analytics.index.col_timestamp') %></th>
+            <th class="py-3"><%= t('analytics.index.col_event') %></th>
+            <th class="py-3"><%= t('analytics.index.col_user') %></th>
+            <th class="py-3"><%= t('analytics.index.col_path') %></th>
+            <th class="py-3"><%= t('analytics.index.col_content_id') %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% recent_events.each do |event| %>
+            <tr>
+              <td class="ps-4 text-muted small">
+                <%= event.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+              </td>
+              <td>
+                  <span class="badge bg-info text-dark rounded-pill">
+                    <%= event.event_type %>
+                  </span>
+              </td>
+              <td class="fw-semibold"><%= event.user.email %></td>
+              <td><%= event.learning_path.title %></td>
+              <td class="text-muted font-monospace small">
+                <%= event.lesson_id.truncate(15) %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="p-5 text-center text-muted">
+        <%= t('analytics.index.waiting_events') %>
+      </div>
+    <% end %>
+  </div>
+</div>
