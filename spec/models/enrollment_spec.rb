@@ -58,6 +58,7 @@ RSpec.describe Enrollment, type: :model do
     before do
       enrollment.save!
       allow(enrollment.learning_path).to receive(:total_completable_items_count).and_return(4)
+      allow(EventPublisher).to receive(:publish)
       ActiveJob::Base.queue_adapter = :test
     end
 
