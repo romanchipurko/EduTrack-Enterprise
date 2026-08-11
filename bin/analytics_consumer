@@ -31,6 +31,9 @@ begin
     )
 
     channel.ack(delivery_info.delivery_tag)
+  rescue ActiveRecord::RecordInvalid => e
+    puts "[!] Validation error: #{e.message}"
+    channel.nack(delivery_info.delivery_tag, false, false)
   rescue StandardError => e
     puts "[!] Error: #{e.message}"
     channel.nack(delivery_info.delivery_tag, false, true)

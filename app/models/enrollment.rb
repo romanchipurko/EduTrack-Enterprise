@@ -24,11 +24,11 @@ class Enrollment < ApplicationRecord
     end
 
     EventPublisher.publish(
-      "user.lesson_completed",
-      {
+      routing_key: "user.lesson_completed",
+      payload: {
         user_id: user.id,
         learning_path_id: learning_path_id,
-        lesson_id: item_str,
+        lesson_id: item_id.to_s,
         timestamp: Time.current.to_i
       }
     )
