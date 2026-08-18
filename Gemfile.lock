@@ -578,8 +578,8 @@ DEPENDENCIES
   rails (~> 8.0.0)
   rails-controller-testing
   rails-i18n (~> 8.0)
-  rspec-rails (~> 8.0.4)
   redis
+  rspec-rails (~> 8.0.4)
   rubocop
   rubocop-capybara
   rubocop-performance
