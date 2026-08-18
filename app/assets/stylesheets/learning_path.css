@@ -75,3 +75,12 @@
     }
   }
 }
+
+.tracking-wide {
+  letter-spacing: 0.05em;
+}
+
+.custom-progress-container {
+  height: 6px;
+  border-radius: 10px;
+}

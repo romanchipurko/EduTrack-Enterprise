@@ -107,6 +107,13 @@ ru:
       video_material: "Видеоматериал"
       asset_material: "Прикрепленный файл / ресурс"
       watch_video: "Смотреть видео"
+      completed: "Пройдено"
+      lesson_completed: "Урок пройден"
+      submit_and_go_next: "Завершить и продолжить"
+      progress: "Прогресс"
+      subscribe: "Подписаться на курс"
+      curriculum_locked_title: "Программа скрыта"
+      curriculum_locked_text: "Подпишитесь на курс, чтобы получить доступ к материалам."
     card:
       details: "Подробнее"
     empty:
@@ -184,6 +191,8 @@ ru:
     users:
       title: "Пользователи"
       main: "Данные пользователя"
+      enrollments_count: "Подписки"
+      enrollments_panel: "Курсы пользователя"
       reset_password:
         button: "Отправить сброс пароля"
         confirm: "Отправить письмо для сброса пароля этому пользователю?"
@@ -192,3 +201,9 @@ ru:
     learning_paths:
       title: "Курсы"
       main: "Данные курсов"
+      students_count: "Студенты"
+      total_items: "Всего элементов контента"
+      enrollments_panel: "Студенты на курсе"
+    enrollments:
+      title: "Подписки"
+      main: "Данные подписки"

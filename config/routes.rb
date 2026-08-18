@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           post :submit, on: :member
         end
       end
+      resources :enrollments, only: [ :create ]
     end
   end
 end

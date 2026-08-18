@@ -105,6 +105,13 @@ en:
       video_material: "Video material"
       asset_material: "Attached File / Resource"
       watch_video: "Watch video"
+      completed: "Completed"
+      lesson_completed: "Lesson Completed"
+      submit_and_go_next: "Submit & Go Next"
+      progress: "Progress"
+      subscribe: "Subscribe to Course"
+      curriculum_locked_title: "Curriculum locked"
+      curriculum_locked_text: "Subscribe to the course to access the materials."
     card:
       details: "Details"
     empty:
@@ -180,6 +187,8 @@ en:
     users:
       title: "Users"
       main: "User Details"
+      enrollments_count: "Enrollments"
+      enrollments_panel: "Enrolled Courses"
       reset_password:
         button: "Send Password Reset"
         confirm: "Send password reset email to this user?"
@@ -188,3 +197,9 @@ en:
     learning_paths:
       title: "Learning Paths"
       main: "Learning Paths Details"
+      students_count: "Students"
+      total_items: "Total Content Items"
+      enrollments_panel: "Enrolled Students"
+    enrollments:
+      title: "Enrollments"
+      main: "Enrollment Details"

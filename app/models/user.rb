@@ -8,6 +8,8 @@ class User < ApplicationRecord
   PASSWORD_REGEXP = /\A(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.{8,}).+\z/
 
   has_many :quiz_attempts, dependent: :destroy
+  has_many :enrollments, dependent: :destroy
+  has_many :learning_paths, through: :enrollments
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
@@ -29,6 +31,10 @@ class User < ApplicationRecord
         admins: roles_counts["admin"]
       }
     end
+  end
+
+  def self.users_collection
+    Rails.cache.fetch("users/users_collection", expires_in: 10.minutes) { pluck(:email, :id) }
   end
 
   def self.ransackable_attributes(auth_object = nil)
