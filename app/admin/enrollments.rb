@@ -1,11 +1,11 @@
 ActiveAdmin.register Enrollment do
   menu priority: 4, label: proc { I18n.t("active_admin.enrollments.title") }
 
-  permit_params :user_id, :learning_path_id, :progress_percentage
+  permit_params :user_id, :learning_path_id
 
   includes :user, :learning_path
 
-  filter :user, collection: proc { User.pluck(:email, :id) }
+  filter :user, collection: proc { User.users_collection }
   filter :learning_path
   filter :progress_percentage
   filter :created_at
@@ -54,9 +54,9 @@ ActiveAdmin.register Enrollment do
 
   form do |f|
     f.inputs I18n.t("active_admin.enrollments.main") do
-      f.input :user, collection: User.pluck(:email, :id)
+      f.input :user, collection: User.users_collection
       f.input :learning_path
-      f.input :progress_percentage, input_html: { min: 0, max: 100 }
+      f.input :progress_percentage, input_html: { min: 0, max: 100, readonly: true  }
     end
     f.actions
   end

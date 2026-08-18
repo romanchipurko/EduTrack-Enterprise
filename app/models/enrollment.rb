@@ -20,15 +20,17 @@ class Enrollment < ApplicationRecord
 
   def recalculate_progress!
     total_items = learning_path.total_completable_items_count
+    completed_count = completed_actual_count
 
-    if total_items.zero?
-      self.progress_percentage = 0
-    else
-      calculated_percentage = ((completed_item_ids.size.to_f / total_items) * 100).round.to_i
-      self.progress_percentage = [ calculated_percentage, 100 ].min
-    end
-
+    self.progress_percentage = total_items.zero? ? 0 : ((completed_count.to_f / total_items) * 100).round.to_i.clamp(0, 100)
     save!
+  end
+
+  def completed_actual_count
+    return 0 if completed_item_ids.blank?
+
+    valid_ids = learning_path.valid_completable_item_ids
+    (completed_item_ids & valid_ids).size
   end
 
   def self.ransackable_attributes(auth_object = nil)

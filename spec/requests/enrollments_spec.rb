@@ -41,7 +41,7 @@ RSpec.describe 'Enrollments', type: :request do
       end
     end
 
-    context 'when authenticated and updating progress without next_url' do
+    context 'when authenticated and updating progress without next_item_id' do
       let(:item_id) { BSON::ObjectId.new.to_s }
       let(:enrollment) { create(:enrollment, user: user, learning_path: learning_path) }
 
@@ -68,9 +68,9 @@ RSpec.describe 'Enrollments', type: :request do
       end
     end
 
-    context 'when authenticated and updating progress with next_url' do
+    context 'when authenticated and updating progress with next_item_id' do
       let(:item_id) { BSON::ObjectId.new.to_s }
-      let(:next_url) { 'http://www.example.com/next_lesson' }
+      let(:next_item_id) { BSON::ObjectId.new.to_s }
 
       before do
         sign_in user
@@ -78,9 +78,9 @@ RSpec.describe 'Enrollments', type: :request do
         CourseContent.create!(title: 'Dummy Lesson', position: 1, learning_path_id: learning_path.id.to_s)
       end
 
-      it 'redirects to the provided URL' do
-        post learning_path_enrollments_path(learning_path), params: { item_id: item_id, next_item_url: next_url }
-        expect(response).to redirect_to(next_url)
+      it 'redirects to the learning path with next_item_id query param' do
+        post learning_path_enrollments_path(learning_path), params: { item_id: item_id, next_item_id: next_item_id }
+        expect(response).to redirect_to(learning_path_path(learning_path, next_item_id: next_item_id))
       end
     end
   end

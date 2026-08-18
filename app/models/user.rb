@@ -33,6 +33,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.users_collection
+    Rails.cache.fetch("users/users_collection", expires_in: 10.minutes) { pluck(:email, :id) }
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     %w[email created_at role]
   end

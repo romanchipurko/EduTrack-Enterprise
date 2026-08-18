@@ -95,7 +95,7 @@ RSpec.describe Enrollment, type: :model do
 
     context 'when the learning path has no completable items' do
       before do
-        allow(enrollment.learning_path).to receive(:total_completable_items_count).and_return(0)
+        allow(enrollment.learning_path).to receive_messages(total_completable_items_count: 0, valid_completable_item_ids: [])
       end
 
       it 'sets the progress_percentage to 0' do
@@ -107,26 +107,28 @@ RSpec.describe Enrollment, type: :model do
     end
 
     context 'when the learning path has completable items' do
+      let(:valid_item_ids) { Array.new(4) { BSON::ObjectId.new.to_s } }
+
       before do
-        allow(enrollment.learning_path).to receive(:total_completable_items_count).and_return(4)
+        allow(enrollment.learning_path).to receive_messages(total_completable_items_count: 4, valid_completable_item_ids: valid_item_ids)
       end
 
       it 'calculates 25 percent for 1 out of 4 items' do
-        enrollment.completed_item_ids = [ BSON::ObjectId.new.to_s ]
+        enrollment.completed_item_ids = [ valid_item_ids.first ]
         enrollment.recalculate_progress!
 
         expect(enrollment.progress_percentage).to eq(25)
       end
 
       it 'calculates 100 percent for 4 out of 4 items' do
-        enrollment.completed_item_ids = Array.new(4) { BSON::ObjectId.new.to_s }
+        enrollment.completed_item_ids = valid_item_ids
         enrollment.recalculate_progress!
 
         expect(enrollment.progress_percentage).to eq(100)
       end
 
       it 'caps the progress percentage at 100 even if completed items exceed total' do
-        enrollment.completed_item_ids = Array.new(5) { BSON::ObjectId.new.to_s }
+        enrollment.completed_item_ids = valid_item_ids + [ BSON::ObjectId.new.to_s ]
         enrollment.recalculate_progress!
 
         expect(enrollment.progress_percentage).to eq(100)
