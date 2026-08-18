@@ -14,22 +14,17 @@ class LearningPath < ApplicationRecord
   end
 
   def total_completable_items_count
-    cc_ids = course_contents.pluck(:id)
-    quizzes_count = Quiz.where(:course_content_id.in => cc_ids).count
-    cc_ids.size + quizzes_count
+    valid_completable_item_ids.size
   end
 
   def valid_completable_item_ids
-    cc_ids = course_contents.pluck(:id)
-    content_ids = cc_ids.map(&:to_s)
-    quiz_ids = Quiz.where(:course_content_id.in => cc_ids).pluck(:id).map(&:to_s)
-    content_ids + quiz_ids
-  end
+    @valid_completable_item_ids ||= begin
+                                      cc_ids = course_contents.pluck(:_id).map(&:to_s)
+                                      return [] if cc_ids.empty?
 
-  def total_completable_items_count
-    contents = course_contents
-    quizzes_count = Quiz.where(:course_content_id.in => contents.pluck(:id)).size
-    quizzes_count + contents.size
+                                      quiz_ids = Quiz.where(:course_content_id.in => cc_ids).pluck(:_id).map(&:to_s)
+                                      cc_ids + quiz_ids
+                                    end
   end
 
   def self.ransackable_attributes(auth_object = nil)
