@@ -17,9 +17,7 @@
 
   <% if @learning_paths.present? %>
     <div class="row g-4 flex-grow-1 align-content-start">
-      <% @learning_paths.each do |path| %>
-        <%= render "learning_path_form", path: path %>
-      <% end %>
+      <%= render partial: "learning_path_form", collection: @learning_paths, as: :path %>
     </div>
   <% else %>
     <div class="flex-grow-1 d-flex flex-column justify-content-center">

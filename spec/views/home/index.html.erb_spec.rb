@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "home/index", type: :view do
-  before { render }
+  before do
+    allow(view).to receive_messages(user_signed_in?: false, current_user: nil)
+    render
+  end
 
   describe "Hero section" do
     it "renders the hero section container" do

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'learning_paths/show', type: :view do
+  let(:user) { build_stubbed(:user) }
   let(:learning_path) { build_stubbed(:learning_path, title: 'Test Path', description: 'Test description') }
   let(:markdown_element) { Elements::Markdown.new(body: 'Hello World', position: 1) }
   let(:enrollment) { build_stubbed(:enrollment, progress_percentage: 50) }
@@ -18,12 +19,9 @@ RSpec.describe 'learning_paths/show', type: :view do
     assign(:learning_path, learning_path)
     assign(:course_contents, [])
     assign(:enrollment, enrollment)
-
-    allow(view).to receive(:current_user).and_return(nil)
     without_partial_double_verification { allow(view).to receive(:policy).and_return(double(update?: true)) }
-
+    allow(view).to receive(:current_user).and_return(user)
     allow(enrollment).to receive(:item_completed?).and_return(false)
-
     view.controller.default_url_options = { locale: 'en' }
   end
 

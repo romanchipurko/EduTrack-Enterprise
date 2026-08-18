@@ -5,13 +5,15 @@ FactoryBot.define do
     sequence(:position) { |n| n }
     elements do
       [
-        Elements::Markdown.new(body: "## Welcome\nThis is text.", position: 1),
-        Elements::Video.new(url: "https://example.com/lesson.mp4", position: 2)
+        Elements::Markdown.new(_type: 'Elements::Markdown',  body: "## Welcome\nThis is text.", position: 1),
+        Elements::Video.new(_type: 'Elements::Video', url: "https://example.com/lesson.mp4", position: 2)
       ]
     end
 
     trait :with_code_block do
-      elements { [ Elements::Code.new(language: "ruby", content: "puts 'Hello, Mongoid!'", position: 1) ] }
+      elements do
+        [ Elements::Code.new(_type: 'Elements::Code', language: "ruby", content: "puts 'Hello, Mongoid!'", position: 1) ]
+      end
     end
 
     trait :empty_elements do
