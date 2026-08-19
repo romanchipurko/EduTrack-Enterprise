@@ -38,7 +38,7 @@ services:
 
   sidekiq:
     build: .
-    command: bundle exec sidekiq
+    command: bundle exec sidekiq -q default -q certificate_generation
     volumes:
       - .:/edu-track
     environment:

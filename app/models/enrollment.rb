@@ -12,14 +12,14 @@ class Enrollment < ApplicationRecord
     completed_item_ids.include?(item_id.to_s)
   end
 
-  def complete_item!(item_id:)
+  def complete_item!(item_id:, locale:)
     return if completed_item_ids.include?(item_id.to_s)
 
     self.completed_item_ids = (completed_item_ids + [ item_id.to_s ])
     recalculate_progress!
 
     if progress_percentage == 100 && !certificate.attached?
-      CertificateGenerationJob.perform_later(user: user, learning_path: learning_path)
+      CertificateGenerationJob.perform_later(user: user, learning_path: learning_path, locale: locale)
     end
   end
 

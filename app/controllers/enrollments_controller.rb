@@ -5,7 +5,7 @@ class EnrollmentsController < ApplicationController
     authorize Enrollment
     @learning_path = LearningPath.find(params[:learning_path_id])
     @enrollment = current_user.enrollments.find_or_create_by(learning_path: @learning_path)
-    @enrollment.complete_item!(item_id: params[:item_id]) if params[:item_id].present?
+    @enrollment.complete_item!(item_id: params[:item_id], locale: I18n.locale) if params[:item_id].present?
 
     if params[:next_item_id].present?
       redirect_to learning_path_path(@learning_path, next_item_id: params[:next_item_id])
