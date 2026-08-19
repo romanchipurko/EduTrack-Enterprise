@@ -2,6 +2,8 @@ class Enrollment < ApplicationRecord
   belongs_to :user, counter_cache: true
   belongs_to :learning_path, counter_cache: true
 
+  has_one_attached :certificate
+
   validates :user_id, uniqueness: { scope: :learning_path_id }
   validates :progress_percentage, presence: true,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
@@ -10,12 +12,25 @@ class Enrollment < ApplicationRecord
     completed_item_ids.include?(item_id.to_s)
   end
 
-  def complete_item!(item_id:)
-    item = item_id.to_s
-    return if completed_item_ids.include?(item)
+  def complete_item!(item_id:, locale:)
+    return if completed_item_ids.include?(item_id.to_s)
 
-    self.completed_item_ids = (completed_item_ids + [ item ])
+    self.completed_item_ids = (completed_item_ids + [ item_id.to_s ])
     recalculate_progress!
+
+    if progress_percentage == 100 && !certificate.attached?
+      CertificateGenerationJob.perform_later(user: user, learning_path: learning_path, locale: locale)
+    end
+
+    EventPublisher.publish(
+      routing_key: "user.lesson_completed",
+      payload: {
+        user_id: user.id,
+        learning_path_id: learning_path_id,
+        lesson_id: item_id.to_s,
+        timestamp: Time.current.to_i
+      }
+    )
   end
 
   def recalculate_progress!

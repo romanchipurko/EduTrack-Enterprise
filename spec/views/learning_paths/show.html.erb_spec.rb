@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'learning_paths/show', type: :view do
+  let(:user) { build_stubbed(:user) }
   let(:learning_path) { build_stubbed(:learning_path, title: 'Test Path', description: 'Test description') }
   let(:markdown_element) { Elements::Markdown.new(body: 'Hello World', position: 1) }
   let(:enrollment) { build_stubbed(:enrollment, progress_percentage: 50) }
@@ -18,12 +19,9 @@ RSpec.describe 'learning_paths/show', type: :view do
     assign(:learning_path, learning_path)
     assign(:course_contents, [])
     assign(:enrollment, enrollment)
-
-    allow(view).to receive(:current_user).and_return(nil)
     without_partial_double_verification { allow(view).to receive(:policy).and_return(double(update?: true)) }
-
+    allow(view).to receive(:current_user).and_return(user)
     allow(enrollment).to receive(:item_completed?).and_return(false)
-
     view.controller.default_url_options = { locale: 'en' }
   end
 
@@ -97,6 +95,25 @@ RSpec.describe 'learning_paths/show', type: :view do
 
     it 'renders the submit and go next button' do
       expect(rendered).to have_button(I18n.t('learning_paths.show.submit_and_go_next'))
+    end
+  end
+
+  context 'when user is enrolled, progress is 100% and certificate is attached' do
+    # Убрали let(:certificate_blob_path), чтобы не раздражать Rubocop количеством переменных
+    before do
+      assign(:enrollment, enrollment)
+      allow(learning_path).to receive(:course_contents).and_return([])
+
+      # Исправлено на instance_double
+      cert_mock = instance_double(ActiveStorage::Attached::One, attached?: true)
+      allow(enrollment).to receive(:certificate).and_return(cert_mock)
+      allow(view).to receive(:rails_blob_path).with(cert_mock, disposition: "attachment").and_return('/path/to/cert.pdf')
+
+      render
+    end
+
+    it 'displays the download certificate button' do
+      expect(rendered).to have_link(I18n.t('learning_paths.show.download_certificate', default: 'Download Certificate'), href: '/path/to/cert.pdf')
     end
   end
 end

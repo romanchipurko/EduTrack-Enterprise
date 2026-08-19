@@ -96,6 +96,27 @@ RSpec.describe CourseContent, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    let(:learning_path) { create(:learning_path) }
+    let(:course_content) { build(:course_content, learning_path_id: learning_path.id.to_s) }
+
+    it 'enqueues RecalculateProgressJob on save' do
+      ActiveJob::Base.queue_adapter = :test
+      expect { course_content.save! }
+        .to have_enqueued_job(RecalculateProgressJob)
+              .with(learning_path_id: learning_path.id.to_s) # Исправлено на хэш
+    end
+
+    it 'enqueues RecalculateProgressJob on destroy' do
+      course_content.save!
+      ActiveJob::Base.queue_adapter = :test
+
+      expect { course_content.destroy! }
+        .to have_enqueued_job(RecalculateProgressJob)
+              .with(learning_path_id: learning_path.id.to_s) # Исправлено на хэш
+    end
+  end
+
   describe '#learning_path' do
     let(:course_content) { build(:course_content, learning_path_id: 'test-uuid-123') }
     let(:mock_learning_path) { instance_double(LearningPath, id: 'test-uuid-123') }

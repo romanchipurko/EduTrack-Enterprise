@@ -21,9 +21,7 @@ class LearningPathPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      return scope.all if user.admin? || user.instructor?
-
-      scope.none
+      scope.all
     end
   end
 end

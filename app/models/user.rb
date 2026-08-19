@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :quiz_attempts, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :learning_paths, through: :enrollments
+  has_many :analytics_events, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 

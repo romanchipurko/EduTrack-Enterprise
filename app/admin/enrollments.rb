@@ -40,10 +40,10 @@ ActiveAdmin.register Enrollment do
       end
 
       row :completed_item_ids do |enrollment|
-        if enrollment.completed_item_ids.any?
-          enrollment.completed_item_ids.map { |id| "<span class='status_tag'>#{id}</span>" }.join(" ").html_safe
+        if enrollment.completed_item_ids.present?
+          safe_join(enrollment.completed_item_ids.map { |id| content_tag(:span, id, class: "status_tag") }, " ")
         else
-          "-"
+          "—"
         end
       end
 

@@ -6,10 +6,34 @@ ru:
     home: "Главная"
     features: "Возможности"
     statistics: "Статистика"
+    analytics: "Аналитика"
+    admin_panel: "Панель управления"
     profile: "Профиль"
     sign_out: "Выйти"
     sign_in: "Войти"
     sign_up: "Регистрация"
+  analytics:
+    index:
+      title: "Аналитика платформы"
+      live_badge: "В реальном времени (RabbitMQ)"
+      recent_log_title: "Журнал последних событий"
+      top_paths: "Популярные курсы"
+      course_title: "Название курса"
+      lessons_completed: "Пройдено уроков"
+      no_completions: "Завершений пока не зафиксировано."
+      activity_title: "Активность (последние 7 дней)"
+      lessons_count:
+        one: "%{count} урок"
+        few: "%{count} урока"
+        many: "%{count} уроков"
+        other: "%{count} уроков"
+      no_activity: "Нет активности за последние 7 дней."
+      col_timestamp: "Время"
+      col_event: "Тип события"
+      col_user: "Email пользователя"
+      col_path: "Учебный трек"
+      col_content_id: "ID контента (MongoDB)"
+      waiting_events: "Ожидание событий от RabbitMQ..."
   common:
     create: "Создать учебный трек"
     save_changes: "Сохранить изменения"
@@ -114,6 +138,7 @@ ru:
       subscribe: "Подписаться на курс"
       curriculum_locked_title: "Программа скрыта"
       curriculum_locked_text: "Подпишитесь на курс, чтобы получить доступ к материалам."
+      download_certificate: "Скачать сертификат (.pdf)"
     card:
       details: "Подробнее"
     empty:
@@ -207,3 +232,12 @@ ru:
     enrollments:
       title: "Подписки"
       main: "Данные подписки"
+  certificate:
+    title: "Сертификат об окончании"
+    certify_that: "Настоящим подтверждается, что"
+    completed: "успешно завершил(а) программу обучения"
+    date: "Дата: %{date}"
+  date:
+    formats:
+      long: "%d %B %Y г."
+    month_names: [ ~, января, февраля, марта, апреля, мая, июня, июля, августа, сентября, октября, ноября, декабря ]

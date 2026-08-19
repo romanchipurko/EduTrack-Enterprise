@@ -63,10 +63,10 @@ class CourseContentsController < ApplicationController
     return if elements_attributes.blank?
 
     iterable_attributes = elements_attributes.respond_to?(:values) ? elements_attributes.values : elements_attributes
-    iterable_attributes.each do |value|
-      next if value[:_type].blank?
+    iterable_attributes.each do |element_attr|
+      next if (type_value = element_attr[:_type]).blank?
 
-      value.delete(:_type) unless Elements::Base::ALLOWED_TYPES.include?(value[:_type])
+      Elements::Base::ALLOWED_TYPES.include?(type_value) ? type_value.constantize : element_attr.delete(:_type)
     end
   end
 end

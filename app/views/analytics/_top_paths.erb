@@ -1,0 +1,34 @@
+<div class="card shadow-sm border-0 rounded-4 h-100">
+  <div class="card-header bg-white border-0 pt-4 pb-0">
+    <h5 class="card-title text-muted fw-bold mb-0"><%= t('analytics.index.top_paths') %></h5>
+  </div>
+  <div class="card-body">
+    <% if top_paths.any? %>
+      <% paths_cache = LearningPath.where(id: top_paths.keys).index_by(&:id) %>
+      <table class="table table-hover align-middle mt-2">
+        <thead class="table-light">
+        <tr>
+          <th><%= t('analytics.index.course_title') %></th>
+          <th class="text-end"><%= t('analytics.index.lessons_completed') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% top_paths.each do |path_id, count| %>
+          <% path = paths_cache[path_id] %>
+          <% next unless path %>
+          <tr>
+            <td class="fw-semibold"><%= path.title %></td>
+            <td class="text-end fw-bold text-success fs-5">
+              <%= count %> <i class="bi bi-check-circle ms-1"></i>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="text-center py-4 text-muted">
+        <%= t('analytics.index.no_completions') %>
+      </div>
+    <% end %>
+  </div>
+</div>

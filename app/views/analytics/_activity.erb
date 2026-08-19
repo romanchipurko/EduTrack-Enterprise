@@ -1,0 +1,23 @@
+<div class="card shadow-sm border-0 rounded-4 h-100">
+  <div class="card-header bg-white border-0 pt-4 pb-0">
+    <h5 class="card-title text-muted fw-bold mb-0"><%= t('analytics.index.activity_title') %></h5>
+  </div>
+  <div class="card-body">
+    <% if completions_by_day.any? %>
+      <table class="table table-borderless table-sm mt-3">
+        <tbody>
+        <% completions_by_day.each do |date, count| %>
+          <tr>
+            <td class="text-muted"><%= date.strftime(t('date.formats.long')) %></td>
+            <td class="text-end fw-bold"><%= t('analytics.index.lessons_count', count: count) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="text-center py-4 text-muted">
+        <%= t('analytics.index.no_activity') %>
+      </div>
+    <% end %>
+  </div>
+</div>

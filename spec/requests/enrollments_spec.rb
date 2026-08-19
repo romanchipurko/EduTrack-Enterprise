@@ -49,6 +49,7 @@ RSpec.describe 'Enrollments', type: :request do
         sign_in user
         enrollment
         CourseContent.create!(title: 'Dummy Lesson', position: 1, learning_path_id: learning_path.id.to_s)
+        allow(EventPublisher).to receive(:publish)
       end
 
       it 'does not create a duplicate enrollment' do
@@ -76,6 +77,7 @@ RSpec.describe 'Enrollments', type: :request do
         sign_in user
         create(:enrollment, user: user, learning_path: learning_path)
         CourseContent.create!(title: 'Dummy Lesson', position: 1, learning_path_id: learning_path.id.to_s)
+        allow(EventPublisher).to receive(:publish)   # мок
       end
 
       it 'redirects to the learning path with next_item_id query param' do

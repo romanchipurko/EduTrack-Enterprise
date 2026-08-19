@@ -6,10 +6,32 @@ en:
     home: "Home"
     features: "Features"
     statistics: "Statistics"
+    analytics: "Analytics"
+    admin_panel: "Admin Panel"
     profile: "Profile"
     sign_out: "Sign out"
     sign_in: "Sign in"
     sign_up: "Sign up"
+  analytics:
+    index:
+      title: "Platform Analytics"
+      live_badge: "Live via RabbitMQ"
+      recent_log_title: "Recent Event Log"
+      top_paths: "Top Learning Paths"
+      course_title: "Course Title"
+      lessons_completed: "Lessons Completed"
+      no_completions: "No completions recorded yet."
+      activity_title: "Activity (Last 7 Days)"
+      lessons_count:
+        one: "%{count} lesson"
+        other: "%{count} lessons"
+      no_activity: "No activity in the last 7 days."
+      col_timestamp: "Timestamp"
+      col_event: "Event Type"
+      col_user: "User Email"
+      col_path: "Learning Path"
+      col_content_id: "Content ID (MongoDB)"
+      waiting_events: "Waiting for events from RabbitMQ..."
   common:
     create: "Create Learning Path"
     save_changes: "Save Details"
@@ -112,6 +134,7 @@ en:
       subscribe: "Subscribe to Course"
       curriculum_locked_title: "Curriculum locked"
       curriculum_locked_text: "Subscribe to the course to access the materials."
+      download_certificate: "Download Certificate (.pdf)"
     card:
       details: "Details"
     empty:
@@ -203,3 +226,8 @@ en:
     enrollments:
       title: "Enrollments"
       main: "Enrollment Details"
+  certificate:
+    title: "Certificate of Completion"
+    certify_that: "This is to certify that"
+    completed: "has successfully completed the learning path"
+    date: "Date: %{date}"

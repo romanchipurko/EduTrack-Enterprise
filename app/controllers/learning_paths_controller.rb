@@ -5,14 +5,15 @@ class LearningPathsController < ApplicationController
 
   def index
     base_scope = policy_scope(LearningPath)
-    scope = params[:search].present? ? base_scope.search_by_content(params[:search]) : base_scope
-    @learning_paths = scope.page(params[:page]).per(9)
+    base_scope = base_scope.search_by_content(params[:search]) if params[:search].present?
+    @learning_paths = base_scope.order(created_at: :desc).page(params[:page]).per(9)
     @user_enrollments = current_user.enrollments.index_by(&:learning_path_id)
   end
 
   def show
     @course_contents = @learning_path.course_contents.includes(:quizzes).order_by(position: :asc)
     @enrollment = current_user.enrollments.find_by(learning_path: @learning_path)
+    update_enrollment_last_viewed
   end
 
   def new
@@ -66,5 +67,9 @@ class LearningPathsController < ApplicationController
 
   def authorize_learning_path
     authorize @learning_path
+  end
+
+  def update_enrollment_last_viewed
+    @enrollment&.touch
   end
 end
