@@ -28,7 +28,12 @@ services:
       - '5672:5672'
       - '15672:15672'
     volumes:
-    - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   mongo:
     image: mongo:8
@@ -69,9 +74,16 @@ services:
     environment:
       - RAILS_ENV=development
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+      - DATABASE_HOST=db
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - REDIS_URL=redis://redis:6379/0
+      - MONGODB_URL=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/${MONGO_DATABASE}?authSource=admin
     depends_on:
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
       db:
         condition: service_healthy
   
