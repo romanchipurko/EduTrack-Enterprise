@@ -1,4 +1,15 @@
-<%= render "hero" %>
-<%= render "architecture" %>
-<%= render "stack" %>
-<%= render "about" %>
+<% cache ["home_hero", I18n.locale, user_signed_in?] do %>
+  <%= render "hero" %>
+<% end %>
+
+<% cache ["home_architecture", I18n.locale, user_signed_in?] do %>
+  <%= render "architecture" %>
+<% end %>
+
+<% cache ["home_stack", I18n.locale] do %>
+  <%= render "stack" %>
+<% end %>
+
+<% cache ["home_about", I18n.locale] do %>
+  <%= render "about" %>
+<% end %>

@@ -114,6 +114,7 @@ ru:
       subscribe: "Подписаться на курс"
       curriculum_locked_title: "Программа скрыта"
       curriculum_locked_text: "Подпишитесь на курс, чтобы получить доступ к материалам."
+      download_certificate: "Скачать сертификат (.pdf)"
     card:
       details: "Подробнее"
     empty:
@@ -207,3 +208,12 @@ ru:
     enrollments:
       title: "Подписки"
       main: "Данные подписки"
+  certificate:
+    title: "Сертификат об окончании"
+    certify_that: "Настоящим подтверждается, что"
+    completed: "успешно завершил(а) программу обучения"
+    date: "Дата: %{date}"
+  date:
+    formats:
+      long: "%d %B %Y г."
+    month_names: [ ~, января, февраля, марта, апреля, мая, июня, июля, августа, сентября, октября, ноября, декабря ]

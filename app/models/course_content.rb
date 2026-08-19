@@ -18,6 +18,9 @@ class CourseContent
   validates :learning_path_id, :title, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  after_save :trigger_progress_recalculation
+  after_destroy :trigger_progress_recalculation
+
   def learning_path
     return if learning_path_id.blank?
 
@@ -38,5 +41,11 @@ class CourseContent
     return if position.present?
 
     self.position = self.class.where(learning_path_id: learning_path_id).count + 1
+  end
+
+  def trigger_progress_recalculation
+    return if learning_path_id.blank?
+
+    RecalculateProgressJob.perform_later(learning_path_id: learning_path_id)
   end
 end

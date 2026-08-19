@@ -112,6 +112,7 @@ en:
       subscribe: "Subscribe to Course"
       curriculum_locked_title: "Curriculum locked"
       curriculum_locked_text: "Subscribe to the course to access the materials."
+      download_certificate: "Download Certificate (.pdf)"
     card:
       details: "Details"
     empty:
@@ -203,3 +204,8 @@ en:
     enrollments:
       title: "Enrollments"
       main: "Enrollment Details"
+  certificate:
+    title: "Certificate of Completion"
+    certify_that: "This is to certify that"
+    completed: "has successfully completed the learning path"
+    date: "Date: %{date}"

@@ -20,4 +20,25 @@ RSpec.describe Quiz, type: :model do
       expect(quiz.questions.size).to eq(1)
     end
   end
+
+  describe 'callbacks' do
+    let(:course_content) { build(:course_content, learning_path_id: '123') }
+    let(:quiz) { build(:quiz, course_content: course_content) }
+
+    it 'enqueues RecalculateProgressJob on save' do
+      ActiveJob::Base.queue_adapter = :test
+      expect { quiz.save! }
+        .to have_enqueued_job(RecalculateProgressJob)
+              .with(learning_path_id: '123')
+    end
+
+    it 'enqueues RecalculateProgressJob on destroy' do
+      quiz.save!
+      ActiveJob::Base.queue_adapter = :test
+
+      expect { quiz.destroy! }
+        .to have_enqueued_job(RecalculateProgressJob)
+              .with(learning_path_id: '123')
+    end
+  end
 end

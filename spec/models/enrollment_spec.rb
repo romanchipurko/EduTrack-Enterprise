@@ -34,12 +34,12 @@ RSpec.describe Enrollment, type: :model do
   end
 
   describe '#item_completed?' do
-    let(:item_id) { BSON::ObjectId.new.to_s }
+    let(:item_id) { BSON::ObjectId.new }
 
     context 'when the item is in the completed list' do
-      before { enrollment.completed_item_ids = [ item_id ] }
+      before { enrollment.completed_item_ids = [ item_id.to_s ] }
 
-      it 'returns true' do
+      it 'returns true even if passed a BSON object' do
         expect(enrollment.item_completed?(item_id: item_id)).to be true
       end
     end
@@ -52,38 +52,71 @@ RSpec.describe Enrollment, type: :model do
   end
 
   describe '#complete_item!' do
-    let(:item_id) { BSON::ObjectId.new.to_s }
+    let(:item_id) { BSON::ObjectId.new }
+    let(:locale) { :en }
 
     before do
       enrollment.save!
       allow(enrollment.learning_path).to receive(:total_completable_items_count).and_return(4)
+      ActiveJob::Base.queue_adapter = :test
     end
 
     it 'adds the item to completed_item_ids as a string' do
-      expect { enrollment.complete_item!(item_id: item_id) }
-        .to change(enrollment, :completed_item_ids).from([]).to([ item_id ])
+      expect { enrollment.complete_item!(item_id: item_id, locale: locale) }
+        .to change(enrollment, :completed_item_ids).from([]).to([ item_id.to_s ])
     end
 
     it 'calls recalculate_progress! and saves the record' do
       allow(enrollment).to receive(:recalculate_progress!).and_call_original
-      enrollment.complete_item!(item_id: item_id)
+      enrollment.complete_item!(item_id: item_id, locale: locale)
 
       expect(enrollment).to have_received(:recalculate_progress!)
     end
 
     context 'when the item is already completed' do
-      before { enrollment.update!(completed_item_ids: [ item_id ]) }
+      before { enrollment.update!(completed_item_ids: [ item_id.to_s ]) }
 
       it 'does not add the item again' do
-        expect { enrollment.complete_item!(item_id: item_id) }
+        expect { enrollment.complete_item!(item_id: item_id, locale: locale) }
           .not_to change(enrollment, :completed_item_ids)
       end
 
       it 'does not recalculate progress' do
         allow(enrollment).to receive(:recalculate_progress!)
-        enrollment.complete_item!(item_id: item_id)
+        enrollment.complete_item!(item_id: item_id, locale: locale)
 
         expect(enrollment).not_to have_received(:recalculate_progress!)
+      end
+    end
+
+    context 'when progress reaches 100%' do
+      before do
+        allow(enrollment.learning_path).to receive_messages(
+                                             total_completable_items_count: 1,
+                                             valid_completable_item_ids: [ item_id.to_s ]
+                                           )
+      end
+
+      it 'enqueues CertificateGenerationJob' do
+        expect { enrollment.complete_item!(item_id: item_id, locale: locale) }
+          .to have_enqueued_job(CertificateGenerationJob)
+                .with(user: user, learning_path: learning_path, locale: locale)
+      end
+    end
+
+    context 'when progress reaches 100% but certificate is already attached' do
+      before do
+        allow(enrollment.learning_path).to receive_messages(
+                                             total_completable_items_count: 1,
+                                             valid_completable_item_ids: [ item_id.to_s ]
+                                           )
+        cert_mock = instance_double(ActiveStorage::Attached::One, attached?: true)
+        allow(enrollment).to receive(:certificate).and_return(cert_mock)
+      end
+
+      it 'does not enqueue CertificateGenerationJob' do
+        expect { enrollment.complete_item!(item_id: item_id, locale: locale) }
+          .not_to have_enqueued_job(CertificateGenerationJob)
       end
     end
   end
